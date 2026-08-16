@@ -1,0 +1,33 @@
+{
+  "name": "thagencia-tech-provider",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "npm run dev:check && concurrently --kill-others --names frontend,backend --prefix-colors magenta,cyan \"npm run dev --workspace frontend\" \"npm run dev --workspace backend\"",
+    "dev:check": "node scripts/check-dev-ports.mjs",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "dev:backend": "npm run dev --workspace backend",
+    "build:frontend": "npm run build --workspace frontend",
+    "build:backend": "npm run build --workspace backend",
+    "build": "npm run build:backend && npm run build:frontend",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "security:key:ensure": "node scripts/ensure-local-encryption-key.mjs",
+    "db:format": "npm run db:format --workspace backend",
+    "db:validate": "npm run db:validate --workspace backend",
+    "db:generate": "npm run db:generate --workspace backend",
+    "db:migrate": "npm run db:migrate --workspace backend",
+    "db:deploy": "npm run db:deploy --workspace backend",
+    "db:status": "npm run db:status --workspace backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
