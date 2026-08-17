@@ -19,6 +19,7 @@ Esta carpeta es la fuente de verdad operativa y arquitectónica de THagencia Tec
 | [TEMPLATES.md](TEMPLATES.md) | Sincronización, CRUD, estados, variables y envío de plantillas. |
 | [META_COMPLIANCE.md](META_COMPLIANCE.md) | Callbacks de desautorización y eliminación de datos exigidos por Meta. |
 | [DEPLOYMENT_VPS.md](DEPLOYMENT_VPS.md) | Build y despliegue con Nginx, PM2, MySQL y TLS. |
+| [PRODUCTION_RUNBOOK.md](PRODUCTION_RUNBOOK.md) | Configuración real de `app.thagencia.com`, operación del VPS, Meta, SMTP, actualizaciones y troubleshooting. |
 | [PROJECT_STATUS.md](PROJECT_STATUS.md) | Avances, decisiones aprobadas y trabajo pendiente. |
 | [SAAS_ROADMAP.md](SAAS_ROADMAP.md) | Orden de implementación de plantillas, inbox, multimedia, métricas, billing y administración. |
 

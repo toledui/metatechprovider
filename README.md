@@ -71,6 +71,7 @@ Configura SMTP desde el panel Superadmin antes de probar correos reales. El fluj
 
 La documentación mantenida del proyecto está en [`docs/`](docs/README.md):
 
+- runbook del VPS productivo en [`docs/PRODUCTION_RUNBOOK.md`](docs/PRODUCTION_RUNBOOK.md);
 - arquitectura y decisiones técnicas;
 - configuración local;
 - variables de entorno;
