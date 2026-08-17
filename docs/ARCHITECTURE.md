@@ -37,6 +37,11 @@ CRM/n8n -> Bearer API Key -> Backend -> Meta Graph API
 - `Session`: sesiones revocables; conserva SHA-256 del token, nunca el token del navegador.
 - `PlatformSetting`: documento cifrado y versionado por proveedor global.
 - `DataDeletionRequest`: estado idempotente de borrado; conserva hashes, no el identificador Meta ni el código en claro.
+- `Contact`: identidad de WhatsApp por tenant, perfil y datos enriquecidos por el equipo.
+- `Conversation`: hilo por contacto y línea, estado operativo, ventana de atención y resumen de actividad.
+- `Message`: contenido inbound/outbound, `wamid`, dirección y estados de entrega.
+- `ConversationAssignment`: historial temporal de agente y/o equipo responsable.
+- `Tag` e `InternalNote`: clasificación y colaboración privada dentro del tenant.
 
 ## Separación de paneles
 
@@ -67,10 +72,10 @@ Next.js reescribe `/api/*` al backend en desarrollo. En producción Nginx realiz
 
 ```text
 Meta -> API Fastify -> firma + phone_number_id -> webhook_logs -> 200
-                                                        |
-                                                 worker MySQL
-                                                        |
-                                           HMAC -> n8n/CRM
+                         |                              |
+                         |                       worker MySQL
+                         v                              |
+             Contact/Conversation/Message       HMAC -> n8n/CRM
 ```
 
 `WebhookLog` funciona como registro de observabilidad y cola persistente. La API no mantiene promesas en memoria después de responder a Meta. El worker aplica reclamo atómico, timeouts, clasificación de errores y backoff; API y worker pueden reiniciarse de forma independiente.
@@ -80,10 +85,21 @@ Meta -> API Fastify -> firma + phone_number_id -> webhook_logs -> 200
 ```text
 n8n/CRM -> Bearer API Key + Idempotency-Key -> tenant + conexión
 Backend -> rate limit durable -> descifrar token -> /v26.0/{phone}/messages
-Backend -> webhook_logs -> message_id + respuesta estándar
+Backend -> webhook_logs + Conversation/Message -> message_id + respuesta estándar
 ```
 
-El token programático solo se muestra al crearlo; se autentica por hash SHA-256 y scope `messages:send`. La idempotencia se garantiza mediante un hash único por API Key y clave externa. Los logs outbound implementan auditoría y también alimentan el límite por minuto.
+El token programático solo se muestra al crearlo; se autentica por hash SHA-256 y scope `messages:send`. La idempotencia se garantiza mediante un hash único por API Key y clave externa. Los logs outbound implementan auditoría y también alimentan el límite por minuto. Antes de texto o multimedia, el gateway verifica que exista un inbound durante las 24 horas anteriores; fuera de esa ventana solo acepta plantillas. Un envío a un número nuevo crea el contacto y la conversación cuando se trata de una plantilla.
+
+## Flujo implementado del inbox
+
+```text
+Webhook Meta ─┐
+              ├─> Contact + Conversation + Message ─> SSE ─> /dashboard/inbox
+Chat web ─────┤
+API Gateway ──┘
+```
+
+Los tres orígenes convergen en el mismo dominio. El `wamid` vincula la respuesta inicial con eventos posteriores `sent`, `delivered`, `read` o `failed`. Los replays del API Gateway se resuelven desde WebhookLog y no crean otro Message. El canal SSE publica localmente y, cuando existe `REDIS_URL`, replica por Pub/Sub con identificador de instancia para evitar duplicados. Así varias instancias de API entregan los mismos cambios a los clientes de su tenant.
 
 ## Cumplimiento de la plataforma Meta
 

@@ -10,6 +10,9 @@ import nodemailer from "nodemailer";
 import { sendUsingTransport, type AppEmail } from "./mail/service.js";
 import { readSetting, writeSetting } from "./settings/service.js";
 import { deliverWebhookLog } from "./webhooks/delivery.js";
+import { downloadMetaMedia } from "./meta/media.js";
+import { createMetaTemplate, deleteMetaTemplate, listMetaTemplates, updateMetaTemplate } from "./meta/templates.js";
+import { resolveInboxPermissions } from "./inbox/permissions.js";
 
 function tokenFromEmail(email: AppEmail, route: string): string {
   const match = email.text.match(new RegExp(`${route.replace("/", "\\/")}\\?token=([^\\s]+)`));
@@ -152,6 +155,78 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
     const authenticatedCookie = (Array.isArray(loginCookie) ? loginCookie[0] : loginCookie)?.split(";")[0];
     assert.ok(authenticatedCookie);
 
+    const invitedEmail = `agent-${suffix}@example.test`;
+    const invitedPassword = `Agent-${suffix}-Password!`;
+    const inviteMember = await app.inject({
+      method: "POST",
+      url: "/api/team/invitations",
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+      payload: { email: invitedEmail, role: "MEMBER" },
+    });
+    assert.equal(inviteMember.statusCode, 201);
+    assert.equal(sentEmails.length, 2);
+    const invitationToken = tokenFromEmail(sentEmails[1]!, "/invite");
+    const invitationPreview = await app.inject({
+      method: "GET",
+      url: `/api/team/invitations/preview?token=${encodeURIComponent(invitationToken)}`,
+    });
+    assert.equal(invitationPreview.statusCode, 200);
+    assert.equal(invitationPreview.json().invitation.email, invitedEmail);
+
+    const acceptInvitation = await app.inject({
+      method: "POST",
+      url: "/api/team/invitations/accept",
+      headers: { origin: "https://localhost:3000" },
+      payload: { token: invitationToken, name: "Agente Integration", password: invitedPassword },
+    });
+    assert.equal(acceptInvitation.statusCode, 201);
+    const invitedSetCookie = acceptInvitation.headers["set-cookie"];
+    const invitedCookie = (Array.isArray(invitedSetCookie) ? invitedSetCookie[0] : invitedSetCookie)?.split(";")[0];
+    assert.ok(invitedCookie);
+    const reusedInvitation = await app.inject({
+      method: "POST",
+      url: "/api/team/invitations/accept",
+      headers: { origin: "https://localhost:3000" },
+      payload: { token: invitationToken, name: "Agente Integration", password: invitedPassword },
+    });
+    assert.equal(reusedInvitation.statusCode, 400);
+
+    const team = await app.inject({ method: "GET", url: "/api/team", headers: { cookie: authenticatedCookie } });
+    assert.equal(team.statusCode, 200);
+    const invitedMember = team.json().members.find((member: { email: string }) => member.email === invitedEmail);
+    assert.ok(invitedMember);
+    const promoteMember = await app.inject({
+      method: "PATCH",
+      url: `/api/team/members/${invitedMember.id}/role`,
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+      payload: { role: "ADMIN" },
+    });
+    assert.equal(promoteMember.statusCode, 200);
+    assert.equal(promoteMember.json().member.role, "ADMIN");
+
+    const transferOwnership = await app.inject({
+      method: "POST",
+      url: "/api/team/ownership/transfer",
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+      payload: { newOwnerId: invitedMember.id },
+    });
+    assert.equal(transferOwnership.statusCode, 200);
+    const transferBack = await app.inject({
+      method: "POST",
+      url: "/api/team/ownership/transfer",
+      headers: { cookie: invitedCookie, origin: "https://localhost:3000" },
+      payload: { newOwnerId: me.json().user.id },
+    });
+    assert.equal(transferBack.statusCode, 200);
+    const removeMember = await app.inject({
+      method: "DELETE",
+      url: `/api/team/members/${invitedMember.id}`,
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+    });
+    assert.equal(removeMember.statusCode, 204);
+    const revokedMemberSession = await app.inject({ method: "GET", url: "/api/auth/me", headers: { cookie: invitedCookie } });
+    assert.equal(revokedMemberSession.statusCode, 401);
+
     const forbiddenAdmin = await app.inject({
       method: "GET",
       url: "/api/admin/overview",
@@ -242,7 +317,7 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
             messaging_product: "whatsapp",
             metadata: { display_phone_number: "+525500000000", phone_number_id: phoneNumberId },
             contacts: [{ profile: { name: "Cliente de prueba" }, wa_id: "5215500000000" }],
-            messages: [{ from: "5215500000000", id: `wamid.${suffix}`, timestamp: "1700000000", type: "text", text: { body: "Hola" } }],
+            messages: [{ from: "5215500000000", id: `wamid.${suffix}`, timestamp: String(Math.floor(Date.now() / 1_000)), type: "text", text: { body: "Hola" } }],
           },
         }],
       }],
@@ -275,7 +350,49 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
       where: { connectionId: whatsappConnection.id, eventType: "message.text" },
     });
     assert.equal(webhookLogs.length, 1);
-    assert.equal(webhookLogs[0]?.status, "RECEIVED");
+    assert.ok(["RECEIVED", "PROCESSING"].includes(webhookLogs[0]?.status ?? ""));
+
+    const inbox = await app.inject({ method: "GET", url: "/api/inbox", headers: { cookie: authenticatedCookie } });
+    assert.equal(inbox.statusCode, 200);
+    assert.equal(inbox.json().conversations.length, 1);
+    assert.equal(inbox.json().conversations[0].contact.name, "Cliente de prueba");
+    const inboxConversationId = inbox.json().conversations[0].id as string;
+    const inboxDetail = await app.inject({
+      method: "GET",
+      url: `/api/inbox/conversations/${inboxConversationId}`,
+      headers: { cookie: authenticatedCookie },
+    });
+    assert.equal(inboxDetail.statusCode, 200);
+    assert.equal(inboxDetail.json().conversation.messages[0].text, "Hola");
+    const addInboxNote = await app.inject({
+      method: "POST",
+      url: `/api/inbox/conversations/${inboxConversationId}/notes`,
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+      payload: { body: "Contexto interno de prueba" },
+    });
+    assert.equal(addInboxNote.statusCode, 201);
+    const resolveInboxConversation = await app.inject({
+      method: "PATCH",
+      url: `/api/inbox/conversations/${inboxConversationId}/status`,
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+      payload: { status: "RESOLVED" },
+    });
+    assert.equal(resolveInboxConversation.statusCode, 200);
+    const storedInboxConversation = await prisma.conversation.findUniqueOrThrow({ where: { publicId: inboxConversationId } });
+    await prisma.conversation.update({
+      where: { id: storedInboxConversation.id },
+      data: { lastInboundAt: new Date(Date.now() - 25 * 60 * 60 * 1_000) },
+    });
+    const blockedOutsideWindow = await app.inject({
+      method: "POST",
+      url: `/api/inbox/conversations/${inboxConversationId}/messages`,
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+      payload: { type: "text", text: { body: "Respuesta fuera de ventana" } },
+    });
+    assert.equal(blockedOutsideWindow.statusCode, 409);
+    assert.equal(blockedOutsideWindow.json().error, "customer_service_window_closed");
+    assert.equal(metaMessageCalls, 0);
+    await prisma.conversation.update({ where: { id: storedInboxConversation.id }, data: { lastInboundAt: new Date() } });
 
     const deliveryLog = webhookLogs[0]!;
     await prisma.webhookLog.update({ where: { id: deliveryLog.id }, data: { status: "PROCESSING" } });
@@ -347,6 +464,26 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
     assert.equal(listedApiKeys.json().apiKeys[0].id, apiKeyPublicId);
     assert.equal(JSON.stringify(listedApiKeys.json()).includes(apiKeyToken), false);
 
+    await prisma.conversation.update({
+      where: { id: storedInboxConversation.id },
+      data: { lastInboundAt: new Date(Date.now() - 25 * 60 * 60 * 1_000) },
+    });
+    const gatewayBlockedOutsideWindow = await app.inject({
+      method: "POST",
+      url: "/api/v1/messages/send",
+      headers: { authorization: `Bearer ${apiKeyToken}`, "idempotency-key": `closed-${suffix}` },
+      payload: {
+        connection_id: whatsappConnection.publicId,
+        to: "5215500000000",
+        type: "text",
+        text: { body: "No debe salir fuera de ventana" },
+      },
+    });
+    assert.equal(gatewayBlockedOutsideWindow.statusCode, 409);
+    assert.equal(gatewayBlockedOutsideWindow.json().error, "customer_service_window_closed");
+    assert.equal(metaMessageCalls, 0);
+    await prisma.conversation.update({ where: { id: storedInboxConversation.id }, data: { lastInboundAt: new Date() } });
+
     const noIdempotencyKey = await app.inject({
       method: "POST",
       url: "/api/v1/messages/send",
@@ -369,9 +506,19 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
     assert.equal(textOutbound.statusCode, 200);
     assert.equal(textOutbound.json().success, true);
     assert.equal(textOutbound.json().message_id, "wamid.outbound-1");
+    assert.equal(textOutbound.json().conversation_id, inboxConversationId);
+    assert.ok(textOutbound.json().inbox_message_id);
     assert.equal(metaMessageCalls, 1);
     assert.equal(lastMetaMessageBody?.messaging_product, "whatsapp");
     assert.equal(lastMetaMessageBody?.to, "5215500000000");
+    const inboxAfterGatewaySend = await app.inject({
+      method: "GET",
+      url: `/api/inbox/conversations/${inboxConversationId}`,
+      headers: { cookie: authenticatedCookie },
+    });
+    assert.equal(inboxAfterGatewaySend.statusCode, 200);
+    assert.ok(inboxAfterGatewaySend.json().conversation.messages.some((message: { externalId: string; status: string }) =>
+      message.externalId === "wamid.outbound-1" && message.status === "SENT"));
 
     const replayedOutbound = await app.inject({
       method: "POST",
@@ -383,6 +530,7 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
     assert.equal(replayedOutbound.headers["idempotency-replayed"], "true");
     assert.equal(replayedOutbound.json().message_id, "wamid.outbound-1");
     assert.equal(metaMessageCalls, 1);
+    assert.equal(await prisma.message.count({ where: { externalId: "wamid.outbound-1" } }), 1);
 
     const templateOutbound = await app.inject({
       method: "POST",
@@ -390,13 +538,18 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
       headers: { authorization: `Bearer ${apiKeyToken}`, "idempotency-key": `template-${suffix}` },
       payload: {
         connection_id: whatsappConnection.publicId,
-        to: "5215500000000",
+        to: "5215511111111",
         type: "template",
         template: { name: "hello_world", language: "es_MX", components: [] },
       },
     });
     assert.equal(templateOutbound.statusCode, 200);
+    assert.notEqual(templateOutbound.json().conversation_id, inboxConversationId);
     assert.equal((lastMetaMessageBody?.template as { language?: { code?: string } }).language?.code, "es_MX");
+    const inboxAfterNewTemplate = await app.inject({ method: "GET", url: "/api/inbox", headers: { cookie: authenticatedCookie } });
+    assert.equal(inboxAfterNewTemplate.statusCode, 200);
+    assert.ok(inboxAfterNewTemplate.json().conversations.some((conversation: { id: string; contact: { waId: string } }) =>
+      conversation.id === templateOutbound.json().conversation_id && conversation.contact.waId === "5215511111111"));
 
     const imageOutbound = await app.inject({
       method: "POST",
@@ -426,6 +579,50 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
     assert.equal(invalidMedia.statusCode, 422);
     assert.equal(metaMessageCalls, 3);
 
+    const inboxTemplate = await app.inject({
+      method: "POST",
+      url: `/api/inbox/conversations/${inboxConversationId}/messages`,
+      headers: { cookie: authenticatedCookie, origin: "https://localhost:3000" },
+      payload: { type: "template", template: { name: "hello_world", language: "es_MX" } },
+    });
+    assert.equal(inboxTemplate.statusCode, 201);
+    assert.equal(inboxTemplate.json().message.status, "SENT");
+    assert.equal(metaMessageCalls, 4);
+    const statusPayload = JSON.stringify({
+      object: "whatsapp_business_account",
+      entry: [{
+        id: `waba-${suffix}`,
+        changes: [{
+          field: "messages",
+          value: {
+            messaging_product: "whatsapp",
+            metadata: { display_phone_number: "+525500000000", phone_number_id: phoneNumberId },
+            statuses: [
+              { id: "wamid.outbound-1", status: "delivered", timestamp: String(Math.floor(Date.now() / 1_000)), recipient_id: "5215500000000" },
+              { id: "wamid.outbound-4", status: "delivered", timestamp: String(Math.floor(Date.now() / 1_000)), recipient_id: "5215500000000" },
+            ],
+          },
+        }],
+      }],
+    });
+    const deliveryStatusWebhook = await app.inject({
+      method: "POST",
+      url: "/api/webhooks/meta",
+      headers: { "content-type": "application/json", "x-hub-signature-256": `sha256=${hmacSha256(statusPayload, metaAppSecret)}` },
+      payload: statusPayload,
+    });
+    assert.equal(deliveryStatusWebhook.statusCode, 200);
+    const inboxAfterDelivery = await app.inject({
+      method: "GET",
+      url: `/api/inbox/conversations/${inboxConversationId}`,
+      headers: { cookie: authenticatedCookie },
+    });
+    assert.equal(inboxAfterDelivery.statusCode, 200);
+    assert.ok(inboxAfterDelivery.json().conversation.messages.some((message: { externalId: string; status: string }) =>
+      message.externalId === "wamid.outbound-1" && message.status === "DELIVERED"));
+    assert.ok(inboxAfterDelivery.json().conversation.messages.some((message: { externalId: string; status: string }) =>
+      message.externalId === "wamid.outbound-4" && message.status === "DELIVERED"));
+
     const revokeApiKey = await app.inject({
       method: "DELETE",
       url: `/api/api-keys/${apiKeyPublicId}`,
@@ -439,7 +636,7 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
       payload: { to: "5215500000000", type: "text", text: { body: "No debe enviarse" } },
     });
     assert.equal(rejectedRevokedKey.statusCode, 401);
-    assert.equal(metaMessageCalls, 3);
+    assert.equal(metaMessageCalls, 4);
 
     const signedRequest = metaSignedRequest(metaUserId, metaAppSecret);
     const invalidDeauthorization = await app.inject({
@@ -511,9 +708,9 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
     });
     assert.equal(forgot.statusCode, 200);
     assert.equal(forgot.json().message, genericUnknown);
-    assert.equal(sentEmails.length, 2);
+    assert.equal(sentEmails.length, 3);
 
-    const resetToken = tokenFromEmail(sentEmails[1]!, "/reset-password");
+    const resetToken = tokenFromEmail(sentEmails[2]!, "/reset-password");
     const reset = await app.inject({
       method: "POST",
       url: "/api/auth/password/reset",
@@ -521,7 +718,7 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
       payload: { token: resetToken, password: newPassword },
     });
     assert.equal(reset.statusCode, 200);
-    assert.equal(sentEmails.length, 3);
+    assert.equal(sentEmails.length, 4);
 
     const revokedByReset = await app.inject({
       method: "GET",
@@ -559,10 +756,24 @@ test("verificación de correo, recuperación de contraseña y sesión revocable"
     if (user) {
       await prisma.dataDeletionRequest.deleteMany({ where: { metaUserIdHash: sha256(`meta-user-${suffix}`) } });
       await prisma.webhookLog.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.conversationAssignment.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.inboxTeamMember.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.inboxTeam.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.internalNote.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.message.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.conversation.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.tag.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.contact.deleteMany({ where: { tenantId: user.tenantId } });
       await prisma.apiKey.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.whatsAppTemplate.deleteMany({ where: { tenantId: user.tenantId } });
       await prisma.whatsAppConnection.deleteMany({ where: { tenantId: user.tenantId } });
-      await prisma.session.deleteMany({ where: { userId: user.id } });
-      await prisma.user.delete({ where: { id: user.id } });
+      await prisma.auditLog.deleteMany({ where: { tenantId: user.tenantId } });
+      await prisma.tenantInvitation.deleteMany({ where: { tenantId: user.tenantId } });
+      const tenantUsers = await prisma.user.findMany({ where: { tenantId: user.tenantId }, select: { id: true } });
+      const tenantUserIds = tenantUsers.map((tenantUser) => tenantUser.id);
+      await prisma.session.deleteMany({ where: { userId: { in: tenantUserIds } } });
+      await prisma.userToken.deleteMany({ where: { userId: { in: tenantUserIds } } });
+      await prisma.user.deleteMany({ where: { tenantId: user.tenantId } });
       await prisma.tenant.delete({ where: { id: user.tenantId } });
     }
     await app.close();
@@ -588,4 +799,40 @@ test("genera un correo con transporte de prueba sin entregar mensajes reales", a
   assert.equal(message.subject, "Prueba SMTP");
   assert.equal(message.text, "Mensaje de prueba");
   transporter.close();
+});
+
+test("contratos seguros de plantillas, multimedia y permisos del inbox", async () => {
+  const connection = { wabaId: "waba-test", accessTokenEncrypted: encryptCredential("meta-token-test") };
+  const calls: Array<{ url: string; method: string; body?: unknown }> = [];
+  const templateFetcher = (async (input: string | URL | Request, init?: RequestInit) => {
+    const url = String(input);
+    const headers = new Headers(init?.headers);
+    assert.equal(headers.get("authorization"), "Bearer meta-token-test");
+    calls.push({ url, method: init?.method ?? "GET", ...(init?.body ? { body: JSON.parse(String(init.body)) } : {}) });
+    if ((init?.method ?? "GET") === "GET") return new Response(JSON.stringify({ data: [{ id: "tpl-1", name: "hola", language: "es_MX", category: "UTILITY", status: "APPROVED", components: [{ type: "BODY", text: "Hola {{1}}" }] }] }), { status: 200 });
+    return new Response(JSON.stringify({ success: true, id: "tpl-1", status: "PENDING" }), { status: 200 });
+  }) as typeof fetch;
+  const templates = await listMetaTemplates(connection, templateFetcher);
+  assert.equal(templates[0]?.status, "APPROVED");
+  await createMetaTemplate(connection, { name: "hola" }, templateFetcher);
+  await updateMetaTemplate(connection, "tpl-1", { components: [] }, templateFetcher);
+  await deleteMetaTemplate(connection, "hola", templateFetcher);
+  assert.ok(calls[0]?.url.includes("/waba-test/message_templates"));
+  assert.deepEqual(calls.slice(1).map((call) => call.method), ["POST", "POST", "DELETE"]);
+
+  const mediaFetcher = (async (input: string | URL | Request, init?: RequestInit) => {
+    const headers = new Headers(init?.headers);
+    assert.equal(headers.get("authorization"), "Bearer meta-token-test");
+    if (String(input).includes("media-id")) return new Response(JSON.stringify({ url: "https://lookaside.test/file", mime_type: "image/png", file_size: 4 }), { status: 200 });
+    return new Response(new Uint8Array([1, 2, 3, 4]), { status: 200, headers: { "content-type": "image/png", "content-length": "4" } });
+  }) as typeof fetch;
+  const media = await downloadMetaMedia(connection, "media-id", mediaFetcher);
+  assert.equal(media.contentType, "image/png");
+  assert.deepEqual([...media.bytes], [1, 2, 3, 4]);
+
+  const member = resolveInboxPermissions("MEMBER", { sendMessages: false, editContacts: true });
+  assert.equal(member.sendMessages, false);
+  assert.equal(member.editContacts, true);
+  assert.equal(member.addNotes, true);
+  assert.equal(resolveInboxPermissions("ADMIN", {}).manageTemplates, true);
 });

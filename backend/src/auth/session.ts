@@ -17,6 +17,7 @@ export interface AuthContext {
   userName: string;
   userEmail: string;
   userRole: string;
+  inboxPermissions: unknown;
   platformRole: string;
   tenantId: bigint;
   tenantPublicId: string;
@@ -90,6 +91,7 @@ export async function requireAuth(request: FastifyRequest): Promise<AuthContext>
     userName: session.user.name,
     userEmail: session.user.email,
     userRole: session.user.role,
+    inboxPermissions: session.user.inboxPermissions,
     platformRole: session.user.platformRole,
     tenantId: session.user.tenant.id,
     tenantPublicId: session.user.tenant.publicId,

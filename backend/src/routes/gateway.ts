@@ -12,6 +12,13 @@ import {
 } from "../generated/prisma/enums.js";
 import { metaPayload, outboundMessageSchema } from "../gateway/message-schema.js";
 import { sendMetaMessage, type MetaMessageFetcher } from "../gateway/meta-messages.js";
+import {
+  customerServiceWindowOpen,
+  ensureOutboundConversation,
+  findOutboundConversation,
+  persistOutboundInboxMessage,
+} from "../inbox/outbound.js";
+import { publishInboxEvent } from "../inbox/realtime.js";
 import { AppError } from "../lib/errors.js";
 import { prisma } from "../lib/prisma.js";
 import { sha256 } from "../lib/security.js";
@@ -73,6 +80,19 @@ export async function gatewayRoutes(app: FastifyInstance, options: GatewayRoutes
       throw new AppError(422, "connection_id_required", "Este tenant tiene varias líneas activas; indica connection_id.");
     }
     const connection = activeConnections[0]!;
+    const existingConversation = await findOutboundConversation(auth.tenantId, connection.id, parsed.data.to);
+    if (parsed.data.type !== "template" && !customerServiceWindowOpen(existingConversation?.lastInboundAt ?? null)) {
+      throw new AppError(
+        409,
+        "customer_service_window_closed",
+        "La ventana de atención de 24 horas está cerrada. Envía una plantilla aprobada para iniciar o reabrir la conversación.",
+      );
+    }
+    const conversation = existingConversation ?? await ensureOutboundConversation(
+      auth.tenantId,
+      connection.id,
+      parsed.data.to,
+    );
 
     const windowStart = new Date(Date.now() - 60_000);
     const used = await prisma.webhookLog.count({
@@ -117,29 +137,73 @@ export async function gatewayRoutes(app: FastifyInstance, options: GatewayRoutes
       throw error;
     }
 
+    let result;
     try {
-      const result = await sendMetaMessage(connection, outboundPayload, options.metaMessageFetcher);
-      const messageId = Array.isArray(result.body.messages) && result.body.messages[0] &&
-        typeof result.body.messages[0] === "object" && "id" in result.body.messages[0]
-        ? String((result.body.messages[0] as { id: unknown }).id)
-        : null;
-      const responseStatus = result.ok ? 200 : 502;
-      const responseBody = result.ok
-        ? {
-            success: true,
-            request_id: log.publicId,
-            message_id: messageId,
-            meta: result.body,
-          }
-        : {
-            success: false,
-            error: "meta_request_failed",
-            message: "Meta rechazó la solicitud de envío.",
-            request_id: log.publicId,
-            meta: result.body,
-          };
+      result = await sendMetaMessage(connection, outboundPayload, options.metaMessageFetcher);
+    } catch (error) {
+      const createdAt = new Date();
+      const errorMessage = error instanceof Error ? error.message.slice(0, 2_000) : "Error de red con Meta.";
+      const stored = await prisma.$transaction(async (transaction) => {
+        const message = await persistOutboundInboxMessage(transaction, {
+          conversation,
+          message: parsed.data,
+          payload: outboundPayload as Prisma.InputJsonValue,
+          externalId: null,
+          senderUserId: null,
+          succeeded: false,
+          errorMessage,
+          createdAt,
+        });
+        const responseBody = {
+          success: false,
+          error: "meta_unavailable",
+          message: "No fue posible comunicarse con Meta.",
+          request_id: log.publicId,
+          conversation_id: conversation.publicId,
+          inbox_message_id: message.publicId,
+        };
+        await transaction.webhookLog.update({
+          where: { id: log.id },
+          data: {
+            status: WebhookDeliveryStatus.FAILED,
+            responsePayload: { httpStatus: 502, body: responseBody },
+            errorMessage,
+          },
+        });
+        return responseBody;
+      });
+      publishInboxEvent(auth.tenantId, { type: "message.updated", conversationId: conversation.publicId });
+      return reply.status(502).send(stored);
+    }
 
-      await prisma.webhookLog.update({
+    const messageId = Array.isArray(result.body.messages) && result.body.messages[0] &&
+      typeof result.body.messages[0] === "object" && "id" in result.body.messages[0]
+      ? String((result.body.messages[0] as { id: unknown }).id)
+      : null;
+    const responseStatus = result.ok ? 200 : 502;
+    const createdAt = new Date();
+    const errorMessage = result.ok ? null : "Meta rechazó la solicitud de envío.";
+    const responseBody = await prisma.$transaction(async (transaction) => {
+      const message = await persistOutboundInboxMessage(transaction, {
+        conversation,
+        message: parsed.data,
+        payload: outboundPayload as Prisma.InputJsonValue,
+        externalId: messageId,
+        senderUserId: null,
+        succeeded: result.ok,
+        errorMessage,
+        createdAt,
+      });
+      const responseBody = {
+        success: result.ok,
+        ...(result.ok ? {} : { error: "meta_request_failed", message: "Meta rechazó la solicitud de envío." }),
+        request_id: log.publicId,
+        message_id: messageId,
+        conversation_id: conversation.publicId,
+        inbox_message_id: message.publicId,
+        meta: result.body,
+      };
+      await transaction.webhookLog.update({
         where: { id: log.id },
         data: {
           status: result.ok ? WebhookDeliveryStatus.SUCCEEDED : WebhookDeliveryStatus.FAILED,
@@ -148,26 +212,12 @@ export async function gatewayRoutes(app: FastifyInstance, options: GatewayRoutes
           httpStatus: result.status,
           durationMs: result.durationMs,
           responsePayload: { httpStatus: responseStatus, body: responseBody } as Prisma.InputJsonValue,
-          errorMessage: result.ok ? null : "Meta rechazó la solicitud de envío.",
+          errorMessage,
         },
       });
-      return reply.status(responseStatus).send(responseBody);
-    } catch (error) {
-      const responseBody = {
-        success: false,
-        error: "meta_unavailable",
-        message: "No fue posible comunicarse con Meta.",
-        request_id: log.publicId,
-      };
-      await prisma.webhookLog.update({
-        where: { id: log.id },
-        data: {
-          status: WebhookDeliveryStatus.FAILED,
-          responsePayload: { httpStatus: 502, body: responseBody },
-          errorMessage: error instanceof Error ? error.message.slice(0, 2_000) : "Error de red con Meta.",
-        },
-      });
-      return reply.status(502).send(responseBody);
-    }
+      return responseBody;
+    });
+    publishInboxEvent(auth.tenantId, { type: "message.updated", conversationId: conversation.publicId });
+    return reply.status(responseStatus).send(responseBody);
   });
 }

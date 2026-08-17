@@ -96,3 +96,48 @@ export type ApiKey = Prisma.ApiKeyModel
  * 
  */
 export type WebhookLog = Prisma.WebhookLogModel
+/**
+ * Model Contact
+ * 
+ */
+export type Contact = Prisma.ContactModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model ConversationAssignment
+ * 
+ */
+export type ConversationAssignment = Prisma.ConversationAssignmentModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model InternalNote
+ * 
+ */
+export type InternalNote = Prisma.InternalNoteModel
+/**
+ * Model InboxTeam
+ * 
+ */
+export type InboxTeam = Prisma.InboxTeamModel
+/**
+ * Model InboxTeamMember
+ * 
+ */
+export type InboxTeamMember = Prisma.InboxTeamMemberModel
+/**
+ * Model WhatsAppTemplate
+ * 
+ */
+export type WhatsAppTemplate = Prisma.WhatsAppTemplateModel

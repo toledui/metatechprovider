@@ -11,6 +11,7 @@ import {
 } from "../generated/prisma/enums.js";
 import { AppError } from "../lib/errors.js";
 import { prisma } from "../lib/prisma.js";
+import { processMetaInboxValue } from "../inbox/meta-events.js";
 
 const changeSchema = z.object({
   field: z.string().min(1).max(100),
@@ -32,6 +33,7 @@ interface PendingChange {
   externalEventId: string | null;
   deduplicationKey: string;
   payload: Prisma.InputJsonValue;
+  inboxValue: Record<string, unknown>;
 }
 
 function objectValue(value: unknown): Record<string, unknown> | null {
@@ -97,6 +99,7 @@ export async function ingestMetaWebhook(payload: unknown, rawBody: Buffer) {
         eventType: description.eventType,
         externalEventId: description.externalEventId,
         deduplicationKey: deduplicationKey(rawBody, entryIndex, changeIndex),
+        inboxValue: change.value,
         payload: {
           object: parsed.data.object,
           entry: [{
@@ -156,6 +159,17 @@ export async function ingestMetaWebhook(payload: unknown, rawBody: Buffer) {
   });
 
   const created = await prisma.webhookLog.createMany({ data: rows, skipDuplicates: true });
+  for (const change of changes) {
+    const connection = change.phoneNumberId ? byPhone.get(change.phoneNumberId) : undefined;
+    if (
+      connection &&
+      connection.status === WhatsAppConnectionStatus.ACTIVE &&
+      connection.tenant.status === TenantStatus.ACTIVE &&
+      !connection.tenant.deletedAt
+    ) {
+      await processMetaInboxValue(connection, change.inboxValue);
+    }
+  }
   if (connections.length > 0) {
     await prisma.whatsAppConnection.updateMany({
       where: { id: { in: connections.map((connection) => connection.id) } },

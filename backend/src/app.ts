@@ -17,12 +17,17 @@ import { apiKeyRoutes } from "./routes/api-keys.js";
 import { gatewayRoutes } from "./routes/gateway.js";
 import { teamRoutes } from "./routes/team.js";
 import type { MetaMessageFetcher } from "./gateway/meta-messages.js";
+import { inboxRoutes } from "./routes/inbox.js";
+import { closeInboxRealtime } from "./inbox/realtime.js";
+import { templateRoutes } from "./routes/templates.js";
+import type { MetaTemplateFetcher } from "./meta/templates.js";
 
 export interface BuildAppOptions {
   sendEmail?: (email: AppEmail) => Promise<unknown>;
   getMetaWebhookSecrets?: () => Promise<MetaWebhookSecrets | null>;
   getMetaAppSecret?: () => Promise<string | null>;
   metaMessageFetcher?: MetaMessageFetcher;
+  metaTemplateFetcher?: MetaTemplateFetcher;
 }
 
 export function buildApp(options: BuildAppOptions = {}) {
@@ -47,6 +52,7 @@ export function buildApp(options: BuildAppOptions = {}) {
   });
 
   void app.register(cookie);
+  app.addHook("onClose", async () => closeInboxRealtime());
 
   app.removeContentTypeParser("application/json");
   app.addContentTypeParser(
@@ -108,6 +114,13 @@ export function buildApp(options: BuildAppOptions = {}) {
   void app.register(apiKeyRoutes);
   void app.register(gatewayRoutes, {
     ...(options.metaMessageFetcher ? { metaMessageFetcher: options.metaMessageFetcher } : {}),
+  });
+  void app.register(inboxRoutes, {
+    ...(options.metaMessageFetcher ? { metaMessageFetcher: options.metaMessageFetcher } : {}),
+  });
+  void app.register(templateRoutes, {
+    ...(options.metaMessageFetcher ? { metaMessageFetcher: options.metaMessageFetcher } : {}),
+    ...(options.metaTemplateFetcher ? { metaTemplateFetcher: options.metaTemplateFetcher } : {}),
   });
   void app.register(webhookRoutes, {
     ...(options.getMetaWebhookSecrets ? { getMetaWebhookSecrets: options.getMetaWebhookSecrets } : {}),

@@ -30,6 +30,7 @@ Los valores reales viven en `backend/.env`, archivo excluido de Git. `backend/.e
 | `META_WEBHOOK_VERIFY_TOKEN` | Sí | Fallback temporal para verificación de webhooks de Meta. |
 | `API_RATE_LIMIT_PER_MINUTE` | No | Máximo de envíos outbound por API Key en una ventana de 60 segundos. Default `60`. |
 | `META_MESSAGE_TIMEOUT_MS` | No | Timeout de cada envío hacia Graph API. Default `15000`. |
+| `REDIS_URL` | Sí | URL opcional de Redis para distribuir eventos SSE del inbox entre varias instancias. Sin valor usa bus local. |
 | `PHONE_NUMBER_ID` | Sí | Solo para compatibilidad con pruebas manuales. |
 | `WABA_ID` | Sí | Solo para compatibilidad con pruebas manuales. |
 | `ACCESS_TOKEN` | Sí | Token temporal de pruebas; no debe usarse como modelo SaaS. |

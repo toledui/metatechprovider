@@ -93,6 +93,40 @@ enum DataDeletionStatus {
   FAILED
 }
 
+enum ConversationStatus {
+  OPEN
+  PENDING
+  RESOLVED
+}
+
+enum MessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum MessageType {
+  TEXT
+  TEMPLATE
+  IMAGE
+  DOCUMENT
+  AUDIO
+  VIDEO
+  STICKER
+  INTERACTIVE
+  LOCATION
+  CONTACTS
+  REACTION
+  UNKNOWN
+}
+
+enum MessageStatus {
+  RECEIVED
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
 model Tenant {
   id        BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
   publicId  String       @unique(map: "tenants_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
@@ -105,41 +139,56 @@ model Tenant {
   updatedAt DateTime     @updatedAt @map("updated_at") @db.DateTime(3)
   deletedAt DateTime?    @map("deleted_at") @db.DateTime(3)
 
-  users                User[]
-  whatsappConnections  WhatsAppConnection[]
-  apiKeys              ApiKey[]
-  webhookLogs          WebhookLog[]
-  dataDeletionRequests DataDeletionRequest[]
-  invitations          TenantInvitation[]
-  auditLogs            AuditLog[]
+  users                   User[]
+  whatsappConnections     WhatsAppConnection[]
+  apiKeys                 ApiKey[]
+  webhookLogs             WebhookLog[]
+  dataDeletionRequests    DataDeletionRequest[]
+  invitations             TenantInvitation[]
+  auditLogs               AuditLog[]
+  contacts                Contact[]
+  conversations           Conversation[]
+  messages                Message[]
+  conversationAssignments ConversationAssignment[]
+  tags                    Tag[]
+  internalNotes           InternalNote[]
+  inboxTeams              InboxTeam[]
+  inboxTeamMemberships    InboxTeamMember[]
+  whatsappTemplates       WhatsAppTemplate[]
 
   @@index([status, createdAt(sort: Desc)], map: "tenants_status_created_at_idx")
   @@map("tenants")
 }
 
 model User {
-  id           BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
-  publicId     String       @unique(map: "users_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
-  tenantId     BigInt       @map("tenant_id") @db.UnsignedBigInt
-  name         String       @db.VarChar(150)
-  email        String       @unique(map: "users_email_key") @db.VarChar(191)
-  passwordHash String       @map("password_hash") @db.VarChar(255)
-  role         UserRole     @default(MEMBER)
-  platformRole PlatformRole @default(USER) @map("platform_role")
-  status       UserStatus   @default(INVITED)
-  lastLoginAt  DateTime?    @map("last_login_at") @db.DateTime(3)
-  createdAt    DateTime     @default(now()) @map("created_at") @db.DateTime(3)
-  updatedAt    DateTime     @updatedAt @map("updated_at") @db.DateTime(3)
-  deletedAt    DateTime?    @map("deleted_at") @db.DateTime(3)
+  id               BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId         String       @unique(map: "users_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId         BigInt       @map("tenant_id") @db.UnsignedBigInt
+  name             String       @db.VarChar(150)
+  email            String       @unique(map: "users_email_key") @db.VarChar(191)
+  passwordHash     String       @map("password_hash") @db.VarChar(255)
+  role             UserRole     @default(MEMBER)
+  platformRole     PlatformRole @default(USER) @map("platform_role")
+  status           UserStatus   @default(INVITED)
+  lastLoginAt      DateTime?    @map("last_login_at") @db.DateTime(3)
+  createdAt        DateTime     @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt        DateTime     @updatedAt @map("updated_at") @db.DateTime(3)
+  deletedAt        DateTime?    @map("deleted_at") @db.DateTime(3)
+  inboxPermissions Json?        @map("inbox_permissions")
 
-  tenant                  Tenant             @relation(fields: [tenantId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  createdApiKeys          ApiKey[]           @relation("ApiKeyCreatedBy")
-  webhookLogs             WebhookLog[]       @relation("WebhookLogActor")
+  tenant                  Tenant                   @relation(fields: [tenantId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  createdApiKeys          ApiKey[]                 @relation("ApiKeyCreatedBy")
+  webhookLogs             WebhookLog[]             @relation("WebhookLogActor")
   sessions                Session[]
   tokens                  UserToken[]
-  updatedPlatformSettings PlatformSetting[]  @relation("PlatformSettingUpdatedBy")
-  sentInvitations         TenantInvitation[] @relation("TenantInvitationInvitedBy")
-  auditLogs               AuditLog[]         @relation("AuditLogActor")
+  updatedPlatformSettings PlatformSetting[]        @relation("PlatformSettingUpdatedBy")
+  sentInvitations         TenantInvitation[]       @relation("TenantInvitationInvitedBy")
+  auditLogs               AuditLog[]               @relation("AuditLogActor")
+  assignedConversations   ConversationAssignment[] @relation("ConversationAssignedUser")
+  conversationAssignments ConversationAssignment[] @relation("ConversationAssignedBy")
+  sentMessages            Message[]                @relation("MessageSender")
+  internalNotes           InternalNote[]
+  inboxTeamMemberships    InboxTeamMember[]
 
   @@index([tenantId, status], map: "users_tenant_status_idx")
   @@index([platformRole, status], map: "users_platform_role_status_idx")
@@ -267,8 +316,11 @@ model WhatsAppConnection {
   updatedAt              DateTime                 @updatedAt @map("updated_at") @db.DateTime(3)
   deletedAt              DateTime?                @map("deleted_at") @db.DateTime(3)
 
-  tenant      Tenant       @relation(fields: [tenantId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  webhookLogs WebhookLog[]
+  tenant        Tenant             @relation(fields: [tenantId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  webhookLogs   WebhookLog[]
+  conversations Conversation[]
+  messages      Message[]
+  templates     WhatsAppTemplate[]
 
   @@index([tenantId, status], map: "wa_connections_tenant_status_idx")
   @@index([tenantId, wabaId], map: "wa_connections_tenant_waba_idx")
@@ -360,4 +412,214 @@ model WebhookLog {
   @@index([direction, receivedAt(sort: Desc)], map: "webhook_logs_direction_received_at_idx")
   @@index([externalEventId], map: "webhook_logs_external_event_id_idx")
   @@map("webhook_logs")
+}
+
+model Contact {
+  id          BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId    String   @unique(map: "contacts_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId    BigInt   @map("tenant_id") @db.UnsignedBigInt
+  waId        String   @map("wa_id") @db.VarChar(32)
+  name        String?  @db.VarChar(191)
+  profileName String?  @map("profile_name") @db.VarChar(191)
+  email       String?  @db.VarChar(191)
+  company     String?  @db.VarChar(191)
+  notes       String?  @db.Text
+  metadata    Json?
+  createdAt   DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conversations Conversation[]
+
+  @@unique([tenantId, waId], map: "contacts_tenant_wa_id_key")
+  @@index([tenantId, name], map: "contacts_tenant_name_idx")
+  @@map("contacts")
+}
+
+model Conversation {
+  id                 BigInt             @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId           String             @unique(map: "conversations_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId           BigInt             @map("tenant_id") @db.UnsignedBigInt
+  contactId          BigInt             @map("contact_id") @db.UnsignedBigInt
+  connectionId       BigInt             @map("connection_id") @db.UnsignedBigInt
+  status             ConversationStatus @default(OPEN)
+  subject            String?            @db.VarChar(191)
+  lastMessageAt      DateTime?          @map("last_message_at") @db.DateTime(3)
+  lastInboundAt      DateTime?          @map("last_inbound_at") @db.DateTime(3)
+  lastOutboundAt     DateTime?          @map("last_outbound_at") @db.DateTime(3)
+  lastMessagePreview String?            @map("last_message_preview") @db.VarChar(500)
+  unreadCount        Int                @default(0) @map("unread_count") @db.UnsignedInt
+  resolvedAt         DateTime?          @map("resolved_at") @db.DateTime(3)
+  createdAt          DateTime           @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt          DateTime           @updatedAt @map("updated_at") @db.DateTime(3)
+
+  tenant        Tenant                   @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  contact       Contact                  @relation(fields: [contactId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  connection    WhatsAppConnection       @relation(fields: [connectionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  messages      Message[]
+  assignments   ConversationAssignment[]
+  tags          Tag[]
+  internalNotes InternalNote[]
+
+  @@unique([contactId, connectionId], map: "conversations_contact_connection_key")
+  @@index([tenantId, status, lastMessageAt(sort: Desc)], map: "conversations_tenant_status_last_message_idx")
+  @@index([tenantId, unreadCount, lastMessageAt(sort: Desc)], map: "conversations_tenant_unread_last_message_idx")
+  @@map("conversations")
+}
+
+model Message {
+  id               BigInt           @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId         String           @unique(map: "messages_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId         BigInt           @map("tenant_id") @db.UnsignedBigInt
+  conversationId   BigInt           @map("conversation_id") @db.UnsignedBigInt
+  connectionId     BigInt           @map("connection_id") @db.UnsignedBigInt
+  senderUserId     BigInt?          @map("sender_user_id") @db.UnsignedBigInt
+  externalId       String?          @unique(map: "messages_external_id_key") @map("external_id") @db.VarChar(191)
+  direction        MessageDirection
+  type             MessageType
+  status           MessageStatus
+  textBody         String?          @map("text_body") @db.Text
+  content          Json
+  errorCode        String?          @map("error_code") @db.VarChar(100)
+  errorMessage     String?          @map("error_message") @db.Text
+  sentAt           DateTime?        @map("sent_at") @db.DateTime(3)
+  deliveredAt      DateTime?        @map("delivered_at") @db.DateTime(3)
+  readAt           DateTime?        @map("read_at") @db.DateTime(3)
+  failedAt         DateTime?        @map("failed_at") @db.DateTime(3)
+  createdAt        DateTime         @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt        DateTime         @updatedAt @map("updated_at") @db.DateTime(3)
+  retryOfMessageId BigInt?          @map("retry_of_message_id") @db.UnsignedBigInt
+
+  tenant       Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conversation Conversation       @relation(fields: [conversationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  connection   WhatsAppConnection @relation(fields: [connectionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  senderUser   User?              @relation("MessageSender", fields: [senderUserId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  retryOf      Message?           @relation("MessageRetries", fields: [retryOfMessageId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  retries      Message[]          @relation("MessageRetries")
+
+  @@index([conversationId, createdAt], map: "messages_conversation_created_idx")
+  @@index([tenantId, status, updatedAt(sort: Desc)], map: "messages_tenant_status_updated_idx")
+  @@index([retryOfMessageId], map: "messages_retry_of_idx")
+  @@map("messages")
+}
+
+model ConversationAssignment {
+  id               BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId         String    @unique(map: "conversation_assignments_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId         BigInt    @map("tenant_id") @db.UnsignedBigInt
+  conversationId   BigInt    @map("conversation_id") @db.UnsignedBigInt
+  assignedUserId   BigInt?   @map("assigned_user_id") @db.UnsignedBigInt
+  teamName         String?   @map("team_name") @db.VarChar(100)
+  teamId           BigInt?   @map("team_id") @db.UnsignedBigInt
+  assignedByUserId BigInt    @map("assigned_by_user_id") @db.UnsignedBigInt
+  createdAt        DateTime  @default(now()) @map("created_at") @db.DateTime(3)
+  endedAt          DateTime? @map("ended_at") @db.DateTime(3)
+
+  tenant       Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  assignedUser User?        @relation("ConversationAssignedUser", fields: [assignedUserId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  assignedBy   User         @relation("ConversationAssignedBy", fields: [assignedByUserId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  team         InboxTeam?   @relation(fields: [teamId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([conversationId, endedAt, createdAt(sort: Desc)], map: "conversation_assignments_active_idx")
+  @@index([tenantId, assignedUserId, endedAt], map: "conversation_assignments_user_active_idx")
+  @@index([tenantId, teamName, endedAt], map: "conversation_assignments_team_active_idx")
+  @@index([tenantId, teamId, endedAt], map: "conversation_assignments_team_id_active_idx")
+  @@map("conversation_assignments")
+}
+
+model Tag {
+  id        BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId  String   @unique(map: "tags_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId  BigInt   @map("tenant_id") @db.UnsignedBigInt
+  name      String   @db.VarChar(80)
+  color     String   @default("#ff6b35") @db.Char(7)
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conversations Conversation[]
+
+  @@unique([tenantId, name], map: "tags_tenant_name_key")
+  @@index([tenantId, createdAt], map: "tags_tenant_created_idx")
+  @@map("tags")
+}
+
+model InternalNote {
+  id             BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId       String   @unique(map: "internal_notes_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId       BigInt   @map("tenant_id") @db.UnsignedBigInt
+  conversationId BigInt   @map("conversation_id") @db.UnsignedBigInt
+  authorUserId   BigInt   @map("author_user_id") @db.UnsignedBigInt
+  body           String   @db.Text
+  createdAt      DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt      DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  tenant       Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  author       User         @relation(fields: [authorUserId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([conversationId, createdAt], map: "internal_notes_conversation_created_idx")
+  @@map("internal_notes")
+}
+
+model InboxTeam {
+  id        BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId  String   @unique(map: "inbox_teams_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId  BigInt   @map("tenant_id") @db.UnsignedBigInt
+  name      String   @db.VarChar(100)
+  color     String   @default("#ff6b35") @db.Char(7)
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  tenant      Tenant                   @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  members     InboxTeamMember[]
+  assignments ConversationAssignment[]
+
+  @@unique([tenantId, name], map: "inbox_teams_tenant_name_key")
+  @@index([tenantId, createdAt], map: "inbox_teams_tenant_created_idx")
+  @@map("inbox_teams")
+}
+
+model InboxTeamMember {
+  id        BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  tenantId  BigInt   @map("tenant_id") @db.UnsignedBigInt
+  teamId    BigInt   @map("team_id") @db.UnsignedBigInt
+  userId    BigInt   @map("user_id") @db.UnsignedBigInt
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  team   InboxTeam @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user   User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([teamId, userId], map: "inbox_team_members_team_user_key")
+  @@index([tenantId, userId], map: "inbox_team_members_tenant_user_idx")
+  @@map("inbox_team_members")
+}
+
+model WhatsAppTemplate {
+  id              BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  publicId        String   @unique(map: "wa_templates_public_id_key") @default(cuid()) @map("public_id") @db.VarChar(30)
+  tenantId        BigInt   @map("tenant_id") @db.UnsignedBigInt
+  connectionId    BigInt   @map("connection_id") @db.UnsignedBigInt
+  metaTemplateId  String?  @map("meta_template_id") @db.VarChar(64)
+  name            String   @db.VarChar(512)
+  language        String   @db.VarChar(35)
+  category        String   @db.VarChar(40)
+  status          String   @default("PENDING") @db.VarChar(40)
+  qualityScore    String?  @map("quality_score") @db.VarChar(40)
+  rejectionReason String?  @map("rejection_reason") @db.Text
+  components      Json
+  rawPayload      Json?    @map("raw_payload")
+  lastSyncedAt    DateTime @default(now()) @map("last_synced_at") @db.DateTime(3)
+  createdAt       DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  tenant     Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  connection WhatsAppConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([connectionId, name, language], map: "wa_templates_connection_name_language_key")
+  @@index([tenantId, status, updatedAt(sort: Desc)], map: "wa_templates_tenant_status_updated_idx")
+  @@index([connectionId, metaTemplateId], map: "wa_templates_connection_meta_id_idx")
+  @@map("whatsapp_templates")
 }

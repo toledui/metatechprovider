@@ -6,6 +6,8 @@ La Parte 4 permite que n8n, Novemp u otro CRM envíe mensajes por una conexión 
 
 ```text
 CRM/n8n -> Bearer API Key -> THagencia -> token cifrado -> Meta /messages
+                                  |
+                                  `-> Contact + Conversation + Message -> Inbox
 ```
 
 Endpoint:
@@ -59,6 +61,14 @@ No se vuelve a invocar a Meta. Una clave reutilizada con un cuerpo distinto sigu
 - Con una sola línea activa puede omitirse.
 - Con más de una línea activa es obligatorio.
 - Una API Key solo puede acceder a conexiones de su tenant.
+
+## Ventana de atención de 24 horas
+
+Texto, imagen, documento, audio y video solo se envían cuando la conversación tiene un mensaje inbound recibido durante las 24 horas anteriores. El gateway devuelve `409 customer_service_window_closed` antes de contactar a Meta cuando la ventana no está disponible.
+
+Las plantillas aprobadas son la excepción: pueden iniciar una conversación con un número nuevo o reabrir una conversación fuera de la ventana. Al enviar una plantilla a un destino nuevo, el gateway crea su Contact y Conversation para que el intento aparezca inmediatamente en el inbox.
+
+La misma regla se aplica al compositor de `/dashboard/inbox`; usar una API Key no permite saltarse la política.
 
 ## Texto
 
@@ -144,6 +154,8 @@ Audio usa `audio: { "id" | "link" }`. Video permite `caption`, igual que imagen.
   "success": true,
   "request_id": "ID_PUBLICO_LOG",
   "message_id": "wamid...",
+  "conversation_id": "ID_PUBLICO_CONVERSACION",
+  "inbox_message_id": "ID_PUBLICO_MENSAJE",
   "meta": {
     "messaging_product": "whatsapp",
     "contacts": [],
@@ -152,7 +164,9 @@ Audio usa `audio: { "id" | "link" }`. Video permite `caption`, igual que imagen.
 }
 ```
 
-`request_id` permite localizar la auditoría del gateway. `message_id` permite correlacionar estados `sent`, `delivered`, `read` o `failed` que llegan por el webhook inbound.
+`request_id` permite localizar la auditoría del gateway. `conversation_id` abre el hilo correspondiente y `inbox_message_id` identifica el registro local. `message_id` permite correlacionar estados `sent`, `delivered`, `read` o `failed` que llegan por el webhook inbound.
+
+Una respuesta de error de Meta también incluye `conversation_id` e `inbox_message_id`: el intento fallido permanece visible en el chat con su indicador y detalle de error.
 
 ## Errores
 
@@ -162,6 +176,7 @@ Audio usa `audio: { "id" | "link" }`. Video permite `caption`, igual que imagen.
 | 401 | `invalid_api_key` | Clave desconocida, revocada o expirada. |
 | 403 | `insufficient_scope` | La clave no permite enviar mensajes. |
 | 409 | `active_connection_not_found` | No hay línea activa para el tenant. |
+| 409 | `customer_service_window_closed` | Texto o multimedia fuera de la ventana de 24 horas. |
 | 409 | `idempotency_in_progress` | Otra petición con esa clave aún se procesa. |
 | 422 | `validation_error` | Payload inválido. |
 | 422 | `connection_id_required` | Hay varias líneas y no se eligió una. |
@@ -173,8 +188,8 @@ Las respuestas incluyen `X-RateLimit-Limit` y `X-RateLimit-Remaining`. En `429` 
 
 ## Observabilidad y seguridad
 
-Cada intento crea un `WebhookLog` outbound con tenant, conexión, API Key, tipo, duración, status HTTP y respuesta de Meta. Nunca se guarda el header `Authorization` ni el token descifrado.
+Cada intento aceptado crea un `WebhookLog` outbound con tenant, conexión, API Key, tipo, duración, status HTTP y respuesta de Meta. También crea exactamente un Message outbound y actualiza la Conversation correspondiente. Nunca se guarda el header `Authorization` ni el token descifrado.
 
-La deduplicación usa SHA-256 de la API Key interna y `Idempotency-Key`. El índice `webhook_logs_api_key_received_at_idx` optimiza conteo por minuto e historial. El límite predeterminado es 60 mensajes/minuto por API Key y se configura con `API_RATE_LIMIT_PER_MINUTE`.
+La deduplicación usa SHA-256 de la API Key interna y `Idempotency-Key`. Un replay devuelve los mismos `request_id`, `conversation_id`, `inbox_message_id` y `message_id`; no llama otra vez a Meta ni duplica el historial. El índice `webhook_logs_api_key_received_at_idx` optimiza conteo por minuto e historial. El límite predeterminado es 60 mensajes/minuto por API Key y se configura con `API_RATE_LIMIT_PER_MINUTE`.
 
-Los límites del gateway no sustituyen los límites, ventanas de conversación, calidad ni políticas aplicadas por Meta.
+El gateway aplica su propia ventana de atención, pero Meta conserva la autoridad final sobre calidad, límites, categorías de plantilla y políticas de entrega.

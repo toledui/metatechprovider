@@ -130,12 +130,60 @@
 - Pruebas integrales de token, normalización, tipos de mensaje, idempotencia y revocación.
 - Contrato completo y ejemplos en `API_GATEWAY.md`.
 
+### Miembros del tenant
+
+- Invitaciones por correo con rol Admin/Member, token de un solo uso almacenado únicamente como hash y vigencia de 72 horas.
+- Página pública `/invite` con activación de cuenta y sesión HttpOnly inmediata.
+- Reactivación controlada de miembros previamente retirados del mismo tenant.
+- Listado de miembros e invitaciones desde el dashboard.
+- Cambio de roles reservado al owner y restricciones jerárquicas para admins.
+- Expulsión con revocación transaccional de todas las sesiones del usuario.
+- Transferencia de propiedad protegida contra solicitudes concurrentes.
+- Auditoría durable de invitaciones, roles, expulsiones y transferencias.
+- Migración `add_tenant_members_and_audit` aplicada en MySQL.
+- Prueba integral de invitación, no reutilización, roles, transferencia y cierre de sesión aprobada.
+- Guía operativa en `TEAM_MANAGEMENT.md` y roadmap ampliado en `SAAS_ROADMAP.md`.
+- Dashboard del tenant reorganizado en vistas profesionales independientes, con layout persistente y navegación responsive.
+- Rutas operativas separadas: `/dashboard`, `/dashboard/inbox`, `/dashboard/connections`, `/dashboard/webhooks`, `/dashboard/api-keys` y `/dashboard/team`.
+- El resumen presenta métricas y accesos rápidos; ya no monta todos los módulos en una sola página larga.
+
+### Bandeja multiagente
+
+- Modelos Contact, Conversation, Message, ConversationAssignment, Tag e InternalNote aislados por tenant.
+- Migración `add_inbox_domain` aplicada en MySQL.
+- Los webhooks nuevos de Meta crean contactos, conversaciones y mensajes con deduplicación por `wamid`.
+- Conciliación de estados enviado, entregado, leído y fallido desde los webhooks de Meta.
+- Vista `/dashboard/inbox` con conversaciones, chat y panel de contacto, responsive en escritorio y móvil.
+- Estados abierto, pendiente y resuelto; no leídos, filtros, etiquetas, notas internas y asignación a agentes o equipos.
+- Envío desde el chat de texto, plantillas, imágenes, documentos, audio y video.
+- Ventana de atención de 24 horas aplicada tanto al chat como a `POST /api/v1/messages/send`; las plantillas aprobadas permanecen permitidas fuera de la ventana.
+- Los envíos del API Gateway crean el mismo Contact, Conversation y Message que usa el inbox, incluidos fallos e indicadores posteriores.
+- Idempotencia del gateway extendida al dominio: un replay devuelve la respuesta almacenada sin duplicar el mensaje del inbox.
+- Actualización en tiempo real mediante Server-Sent Events por tenant.
+- Pruebas integrales de inbound, ventana de atención, envío por chat, envío por API Key, creación de conversación, replay y conciliación de estados aprobadas.
+- Contrato operativo documentado en `INBOX.md` y `API_GATEWAY.md`.
+- Paginación por cursor para conversaciones y mensajes, sin topes fijos de historial en la interfaz.
+- Descarga autenticada de multimedia inbound mediante proxy backend con límite de 30 MB.
+- Reintento auditable de mensajes fallidos, conservando cada intento enlazado al original.
+- Catálogo durable de equipos, membresías y validación de asignaciones agente/equipo.
+- Permisos granulares por Member para envío, contactos, asignación, estados, etiquetas, notas y plantillas.
+- Auditoría durable de mutaciones operativas del inbox.
+- Redis Pub/Sub opcional mediante `REDIS_URL`, con fallback local para una sola instancia.
+
+### Gestión de plantillas
+
+- Modelo `WhatsAppTemplate` por tenant y conexión, con componentes, categoría, idioma, estado, calidad y rechazo.
+- Sincronización paginada desde `/{waba_id}/message_templates`.
+- Creación, edición y eliminación mediante Graph API y auditoría por usuario.
+- Selector de plantillas aprobadas, vista previa y validación de variables en el chat.
+- Envío de prueba y creación de conversaciones nuevas desde el panel.
+- Contrato operativo documentado en `TEMPLATES.md`.
+
 ## Pendiente
 
 ### Siguientes módulos SaaS
 
-- Gestión de miembros, invitaciones y roles del tenant.
-- Gestión de plantillas desde el panel.
 - Carga de multimedia a Meta y biblioteca de archivos.
 - Métricas de consumo, alertas y exportación de auditoría.
 - Planes, límites comerciales y facturación con Stripe.
+- Administración avanzada e impersonación segura.

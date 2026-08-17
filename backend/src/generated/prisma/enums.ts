@@ -127,3 +127,49 @@ export const DataDeletionStatus = {
 } as const
 
 export type DataDeletionStatus = (typeof DataDeletionStatus)[keyof typeof DataDeletionStatus]
+
+
+export const ConversationStatus = {
+  OPEN: 'OPEN',
+  PENDING: 'PENDING',
+  RESOLVED: 'RESOLVED'
+} as const
+
+export type ConversationStatus = (typeof ConversationStatus)[keyof typeof ConversationStatus]
+
+
+export const MessageDirection = {
+  INBOUND: 'INBOUND',
+  OUTBOUND: 'OUTBOUND'
+} as const
+
+export type MessageDirection = (typeof MessageDirection)[keyof typeof MessageDirection]
+
+
+export const MessageType = {
+  TEXT: 'TEXT',
+  TEMPLATE: 'TEMPLATE',
+  IMAGE: 'IMAGE',
+  DOCUMENT: 'DOCUMENT',
+  AUDIO: 'AUDIO',
+  VIDEO: 'VIDEO',
+  STICKER: 'STICKER',
+  INTERACTIVE: 'INTERACTIVE',
+  LOCATION: 'LOCATION',
+  CONTACTS: 'CONTACTS',
+  REACTION: 'REACTION',
+  UNKNOWN: 'UNKNOWN'
+} as const
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
+export const MessageStatus = {
+  RECEIVED: 'RECEIVED',
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ',
+  FAILED: 'FAILED'
+} as const
+
+export type MessageStatus = (typeof MessageStatus)[keyof typeof MessageStatus]

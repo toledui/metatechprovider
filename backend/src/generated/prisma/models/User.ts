@@ -82,6 +82,7 @@ export type UserCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  inboxPermissions: number
   _all: number
 }
 
@@ -142,6 +143,7 @@ export type UserCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  inboxPermissions?: true
   _all?: true
 }
 
@@ -245,6 +247,7 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  inboxPermissions: runtime.JsonValue | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -284,6 +287,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  inboxPermissions?: Prisma.JsonNullableFilter<"User">
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdApiKeys?: Prisma.ApiKeyListRelationFilter
   webhookLogs?: Prisma.WebhookLogListRelationFilter
@@ -292,6 +296,11 @@ export type UserWhereInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingListRelationFilter
   sentInvitations?: Prisma.TenantInvitationListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  assignedConversations?: Prisma.ConversationAssignmentListRelationFilter
+  conversationAssignments?: Prisma.ConversationAssignmentListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
+  internalNotes?: Prisma.InternalNoteListRelationFilter
+  inboxTeamMemberships?: Prisma.InboxTeamMemberListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -308,6 +317,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  inboxPermissions?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   createdApiKeys?: Prisma.ApiKeyOrderByRelationAggregateInput
   webhookLogs?: Prisma.WebhookLogOrderByRelationAggregateInput
@@ -316,6 +326,11 @@ export type UserOrderByWithRelationInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingOrderByRelationAggregateInput
   sentInvitations?: Prisma.TenantInvitationOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  assignedConversations?: Prisma.ConversationAssignmentOrderByRelationAggregateInput
+  conversationAssignments?: Prisma.ConversationAssignmentOrderByRelationAggregateInput
+  sentMessages?: Prisma.MessageOrderByRelationAggregateInput
+  internalNotes?: Prisma.InternalNoteOrderByRelationAggregateInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberOrderByRelationAggregateInput
   _relevance?: Prisma.UserOrderByRelevanceInput
 }
 
@@ -336,6 +351,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  inboxPermissions?: Prisma.JsonNullableFilter<"User">
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdApiKeys?: Prisma.ApiKeyListRelationFilter
   webhookLogs?: Prisma.WebhookLogListRelationFilter
@@ -344,6 +360,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedPlatformSettings?: Prisma.PlatformSettingListRelationFilter
   sentInvitations?: Prisma.TenantInvitationListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  assignedConversations?: Prisma.ConversationAssignmentListRelationFilter
+  conversationAssignments?: Prisma.ConversationAssignmentListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
+  internalNotes?: Prisma.InternalNoteListRelationFilter
+  inboxTeamMemberships?: Prisma.InboxTeamMemberListRelationFilter
 }, "id" | "publicId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -360,6 +381,7 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  inboxPermissions?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -384,6 +406,7 @@ export type UserScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  inboxPermissions?: Prisma.JsonNullableWithAggregatesFilter<"User">
 }
 
 export type UserCreateInput = {
@@ -399,6 +422,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
@@ -407,6 +431,11 @@ export type UserCreateInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -423,6 +452,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -430,6 +460,11 @@ export type UserUncheckedCreateInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -445,6 +480,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
@@ -453,6 +489,11 @@ export type UserUpdateInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -469,6 +510,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -476,6 +518,11 @@ export type UserUncheckedUpdateInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -492,6 +539,7 @@ export type UserCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type UserUpdateManyMutationInput = {
@@ -507,6 +555,7 @@ export type UserUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -523,6 +572,7 @@ export type UserUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type UserListRelationFilter = {
@@ -555,6 +605,7 @@ export type UserCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  inboxPermissions?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -769,6 +820,80 @@ export type UserUpdateOneWithoutWebhookLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWebhookLogsInput, Prisma.UserUpdateWithoutWebhookLogsInput>, Prisma.UserUncheckedUpdateWithoutWebhookLogsInput>
 }
 
+export type UserCreateNestedOneWithoutSentMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSentMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  upsert?: Prisma.UserUpsertWithoutSentMessagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutAssignedConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedConversationsInput, Prisma.UserUncheckedCreateWithoutAssignedConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutConversationAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationAssignmentsInput, Prisma.UserUncheckedCreateWithoutConversationAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAssignedConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedConversationsInput, Prisma.UserUncheckedCreateWithoutAssignedConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedConversationsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedConversationsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedConversationsInput, Prisma.UserUpdateWithoutAssignedConversationsInput>, Prisma.UserUncheckedUpdateWithoutAssignedConversationsInput>
+}
+
+export type UserUpdateOneRequiredWithoutConversationAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationAssignmentsInput, Prisma.UserUncheckedCreateWithoutConversationAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutConversationAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationAssignmentsInput, Prisma.UserUpdateWithoutConversationAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutConversationAssignmentsInput>
+}
+
+export type UserCreateNestedOneWithoutInternalNotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInternalNotesInput, Prisma.UserUncheckedCreateWithoutInternalNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInternalNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutInternalNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInternalNotesInput, Prisma.UserUncheckedCreateWithoutInternalNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInternalNotesInput
+  upsert?: Prisma.UserUpsertWithoutInternalNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInternalNotesInput, Prisma.UserUpdateWithoutInternalNotesInput>, Prisma.UserUncheckedUpdateWithoutInternalNotesInput>
+}
+
+export type UserCreateNestedOneWithoutInboxTeamMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInboxTeamMembershipsInput, Prisma.UserUncheckedCreateWithoutInboxTeamMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInboxTeamMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutInboxTeamMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInboxTeamMembershipsInput, Prisma.UserUncheckedCreateWithoutInboxTeamMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInboxTeamMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutInboxTeamMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInboxTeamMembershipsInput, Prisma.UserUpdateWithoutInboxTeamMembershipsInput>, Prisma.UserUncheckedUpdateWithoutInboxTeamMembershipsInput>
+}
+
 export type UserCreateWithoutTenantInput = {
   id?: bigint | number
   publicId?: string
@@ -782,6 +907,7 @@ export type UserCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -789,6 +915,11 @@ export type UserCreateWithoutTenantInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTenantInput = {
@@ -804,6 +935,7 @@ export type UserUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -811,6 +943,11 @@ export type UserUncheckedCreateWithoutTenantInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTenantInput = {
@@ -856,6 +993,7 @@ export type UserScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  inboxPermissions?: Prisma.JsonNullableFilter<"User">
 }
 
 export type UserCreateWithoutSentInvitationsInput = {
@@ -871,6 +1009,7 @@ export type UserCreateWithoutSentInvitationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
@@ -878,6 +1017,11 @@ export type UserCreateWithoutSentInvitationsInput = {
   tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentInvitationsInput = {
@@ -894,12 +1038,18 @@ export type UserUncheckedCreateWithoutSentInvitationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentInvitationsInput = {
@@ -931,6 +1081,7 @@ export type UserUpdateWithoutSentInvitationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
@@ -938,6 +1089,11 @@ export type UserUpdateWithoutSentInvitationsInput = {
   tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentInvitationsInput = {
@@ -954,12 +1110,18 @@ export type UserUncheckedUpdateWithoutSentInvitationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -975,6 +1137,7 @@ export type UserCreateWithoutAuditLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
@@ -982,6 +1145,11 @@ export type UserCreateWithoutAuditLogsInput = {
   tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -998,12 +1166,18 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -1035,6 +1209,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
@@ -1042,6 +1217,11 @@ export type UserUpdateWithoutAuditLogsInput = {
   tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -1058,12 +1238,18 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTokensInput = {
@@ -1079,6 +1265,7 @@ export type UserCreateWithoutTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
@@ -1086,6 +1273,11 @@ export type UserCreateWithoutTokensInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTokensInput = {
@@ -1102,12 +1294,18 @@ export type UserUncheckedCreateWithoutTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTokensInput = {
@@ -1139,6 +1337,7 @@ export type UserUpdateWithoutTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
@@ -1146,6 +1345,11 @@ export type UserUpdateWithoutTokensInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTokensInput = {
@@ -1162,12 +1366,18 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUpdatedPlatformSettingsInput = {
@@ -1183,6 +1393,7 @@ export type UserCreateWithoutUpdatedPlatformSettingsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
@@ -1190,6 +1401,11 @@ export type UserCreateWithoutUpdatedPlatformSettingsInput = {
   tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedPlatformSettingsInput = {
@@ -1206,12 +1422,18 @@ export type UserUncheckedCreateWithoutUpdatedPlatformSettingsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedPlatformSettingsInput = {
@@ -1243,6 +1465,7 @@ export type UserUpdateWithoutUpdatedPlatformSettingsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
@@ -1250,6 +1473,11 @@ export type UserUpdateWithoutUpdatedPlatformSettingsInput = {
   tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedPlatformSettingsInput = {
@@ -1266,12 +1494,18 @@ export type UserUncheckedUpdateWithoutUpdatedPlatformSettingsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1287,6 +1521,7 @@ export type UserCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
@@ -1294,6 +1529,11 @@ export type UserCreateWithoutSessionsInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1310,12 +1550,18 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1347,6 +1593,7 @@ export type UserUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
@@ -1354,6 +1601,11 @@ export type UserUpdateWithoutSessionsInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1370,12 +1622,18 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedApiKeysInput = {
@@ -1391,6 +1649,7 @@ export type UserCreateWithoutCreatedApiKeysInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -1398,6 +1657,11 @@ export type UserCreateWithoutCreatedApiKeysInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedApiKeysInput = {
@@ -1414,12 +1678,18 @@ export type UserUncheckedCreateWithoutCreatedApiKeysInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedApiKeysInput = {
@@ -1451,6 +1721,7 @@ export type UserUpdateWithoutCreatedApiKeysInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -1458,6 +1729,11 @@ export type UserUpdateWithoutCreatedApiKeysInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedApiKeysInput = {
@@ -1474,12 +1750,18 @@ export type UserUncheckedUpdateWithoutCreatedApiKeysInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWebhookLogsInput = {
@@ -1495,6 +1777,7 @@ export type UserCreateWithoutWebhookLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
   createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -1502,6 +1785,11 @@ export type UserCreateWithoutWebhookLogsInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWebhookLogsInput = {
@@ -1518,12 +1806,18 @@ export type UserUncheckedCreateWithoutWebhookLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
   sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWebhookLogsInput = {
@@ -1555,6 +1849,7 @@ export type UserUpdateWithoutWebhookLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -1562,6 +1857,11 @@ export type UserUpdateWithoutWebhookLogsInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWebhookLogsInput = {
@@ -1578,12 +1878,658 @@ export type UserUncheckedUpdateWithoutWebhookLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSentMessagesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSentMessagesInput = {
+  id?: bigint | number
+  publicId?: string
+  tenantId: bigint | number
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSentMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+}
+
+export type UserUpsertWithoutSentMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserUpdateWithoutSentMessagesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentMessagesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAssignedConversationsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAssignedConversationsInput = {
+  id?: bigint | number
+  publicId?: string
+  tenantId: bigint | number
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAssignedConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedConversationsInput, Prisma.UserUncheckedCreateWithoutAssignedConversationsInput>
+}
+
+export type UserCreateWithoutConversationAssignmentsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationAssignmentsInput = {
+  id?: bigint | number
+  publicId?: string
+  tenantId: bigint | number
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConversationAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationAssignmentsInput, Prisma.UserUncheckedCreateWithoutConversationAssignmentsInput>
+}
+
+export type UserUpsertWithoutAssignedConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedConversationsInput, Prisma.UserUncheckedUpdateWithoutAssignedConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedConversationsInput, Prisma.UserUncheckedCreateWithoutAssignedConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedConversationsInput, Prisma.UserUncheckedUpdateWithoutAssignedConversationsInput>
+}
+
+export type UserUpdateWithoutAssignedConversationsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedConversationsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutConversationAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationAssignmentsInput, Prisma.UserUncheckedUpdateWithoutConversationAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationAssignmentsInput, Prisma.UserUncheckedCreateWithoutConversationAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationAssignmentsInput, Prisma.UserUncheckedUpdateWithoutConversationAssignmentsInput>
+}
+
+export type UserUpdateWithoutConversationAssignmentsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationAssignmentsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutInternalNotesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutInternalNotesInput = {
+  id?: bigint | number
+  publicId?: string
+  tenantId: bigint | number
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutInternalNotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutInternalNotesInput, Prisma.UserUncheckedCreateWithoutInternalNotesInput>
+}
+
+export type UserUpsertWithoutInternalNotesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutInternalNotesInput, Prisma.UserUncheckedUpdateWithoutInternalNotesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutInternalNotesInput, Prisma.UserUncheckedCreateWithoutInternalNotesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutInternalNotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutInternalNotesInput, Prisma.UserUncheckedUpdateWithoutInternalNotesInput>
+}
+
+export type UserUpdateWithoutInternalNotesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutInternalNotesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutInboxTeamMembershipsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  createdApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutInboxTeamMembershipsInput = {
+  id?: bigint | number
+  publicId?: string
+  tenantId: bigint | number
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  platformRole?: $Enums.PlatformRole
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutActorUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tokens?: Prisma.UserTokenUncheckedCreateNestedManyWithoutUserInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedCreateNestedManyWithoutUpdatedByInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedUserInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderUserInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutInboxTeamMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutInboxTeamMembershipsInput, Prisma.UserUncheckedCreateWithoutInboxTeamMembershipsInput>
+}
+
+export type UserUpsertWithoutInboxTeamMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutInboxTeamMembershipsInput, Prisma.UserUncheckedUpdateWithoutInboxTeamMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutInboxTeamMembershipsInput, Prisma.UserUncheckedCreateWithoutInboxTeamMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutInboxTeamMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutInboxTeamMembershipsInput, Prisma.UserUncheckedUpdateWithoutInboxTeamMembershipsInput>
+}
+
+export type UserUpdateWithoutInboxTeamMembershipsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutInboxTeamMembershipsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  platformRole?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tokens?: Prisma.UserTokenUncheckedUpdateManyWithoutUserNestedInput
+  updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
+  sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateManyTenantInput = {
@@ -1599,6 +2545,7 @@ export type UserCreateManyTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type UserUpdateWithoutTenantInput = {
@@ -1614,6 +2561,7 @@ export type UserUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -1621,6 +2569,11 @@ export type UserUpdateWithoutTenantInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenantInput = {
@@ -1636,6 +2589,7 @@ export type UserUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutActorUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1643,6 +2597,11 @@ export type UserUncheckedUpdateWithoutTenantInput = {
   updatedPlatformSettings?: Prisma.PlatformSettingUncheckedUpdateManyWithoutUpdatedByNestedInput
   sentInvitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  assignedConversations?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedUserNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderUserNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -1658,6 +2617,7 @@ export type UserUncheckedUpdateManyWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inboxPermissions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 
@@ -1673,6 +2633,11 @@ export type UserCountOutputType = {
   updatedPlatformSettings: number
   sentInvitations: number
   auditLogs: number
+  assignedConversations: number
+  conversationAssignments: number
+  sentMessages: number
+  internalNotes: number
+  inboxTeamMemberships: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1683,6 +2648,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   updatedPlatformSettings?: boolean | UserCountOutputTypeCountUpdatedPlatformSettingsArgs
   sentInvitations?: boolean | UserCountOutputTypeCountSentInvitationsArgs
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+  assignedConversations?: boolean | UserCountOutputTypeCountAssignedConversationsArgs
+  conversationAssignments?: boolean | UserCountOutputTypeCountConversationAssignmentsArgs
+  sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+  internalNotes?: boolean | UserCountOutputTypeCountInternalNotesArgs
+  inboxTeamMemberships?: boolean | UserCountOutputTypeCountInboxTeamMembershipsArgs
 }
 
 /**
@@ -1744,6 +2714,41 @@ export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountInternalNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InternalNoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountInboxTeamMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InboxTeamMemberWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1759,6 +2764,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  inboxPermissions?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdApiKeys?: boolean | Prisma.User$createdApiKeysArgs<ExtArgs>
   webhookLogs?: boolean | Prisma.User$webhookLogsArgs<ExtArgs>
@@ -1767,6 +2773,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedPlatformSettings?: boolean | Prisma.User$updatedPlatformSettingsArgs<ExtArgs>
   sentInvitations?: boolean | Prisma.User$sentInvitationsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  assignedConversations?: boolean | Prisma.User$assignedConversationsArgs<ExtArgs>
+  conversationAssignments?: boolean | Prisma.User$conversationAssignmentsArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  internalNotes?: boolean | Prisma.User$internalNotesArgs<ExtArgs>
+  inboxTeamMemberships?: boolean | Prisma.User$inboxTeamMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1786,9 +2797,10 @@ export type UserSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  inboxPermissions?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "publicId" | "tenantId" | "name" | "email" | "passwordHash" | "role" | "platformRole" | "status" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "publicId" | "tenantId" | "name" | "email" | "passwordHash" | "role" | "platformRole" | "status" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt" | "inboxPermissions", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdApiKeys?: boolean | Prisma.User$createdApiKeysArgs<ExtArgs>
@@ -1798,6 +2810,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedPlatformSettings?: boolean | Prisma.User$updatedPlatformSettingsArgs<ExtArgs>
   sentInvitations?: boolean | Prisma.User$sentInvitationsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  assignedConversations?: boolean | Prisma.User$assignedConversationsArgs<ExtArgs>
+  conversationAssignments?: boolean | Prisma.User$conversationAssignmentsArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  internalNotes?: boolean | Prisma.User$internalNotesArgs<ExtArgs>
+  inboxTeamMemberships?: boolean | Prisma.User$inboxTeamMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1812,6 +2829,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     updatedPlatformSettings: Prisma.$PlatformSettingPayload<ExtArgs>[]
     sentInvitations: Prisma.$TenantInvitationPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    assignedConversations: Prisma.$ConversationAssignmentPayload<ExtArgs>[]
+    conversationAssignments: Prisma.$ConversationAssignmentPayload<ExtArgs>[]
+    sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+    internalNotes: Prisma.$InternalNotePayload<ExtArgs>[]
+    inboxTeamMemberships: Prisma.$InboxTeamMemberPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -1827,6 +2849,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    inboxPermissions: runtime.JsonValue | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -2175,6 +3198,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   updatedPlatformSettings<T extends Prisma.User$updatedPlatformSettingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedPlatformSettingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentInvitations<T extends Prisma.User$sentInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedConversations<T extends Prisma.User$assignedConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationAssignments<T extends Prisma.User$conversationAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  internalNotes<T extends Prisma.User$internalNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$internalNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InternalNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inboxTeamMemberships<T extends Prisma.User$inboxTeamMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$inboxTeamMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InboxTeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2217,6 +3245,7 @@ export interface UserFieldRefs {
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly inboxPermissions: Prisma.FieldRef<"User", 'Json'>
 }
     
 
@@ -2730,6 +3759,126 @@ export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * User.assignedConversations
+ */
+export type User$assignedConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConversationAssignment
+   */
+  select?: Prisma.ConversationAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConversationAssignment
+   */
+  omit?: Prisma.ConversationAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ConversationAssignmentWhereInput
+  orderBy?: Prisma.ConversationAssignmentOrderByWithRelationInput | Prisma.ConversationAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationAssignmentScalarFieldEnum | Prisma.ConversationAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.conversationAssignments
+ */
+export type User$conversationAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConversationAssignment
+   */
+  select?: Prisma.ConversationAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConversationAssignment
+   */
+  omit?: Prisma.ConversationAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ConversationAssignmentWhereInput
+  orderBy?: Prisma.ConversationAssignmentOrderByWithRelationInput | Prisma.ConversationAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationAssignmentScalarFieldEnum | Prisma.ConversationAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.sentMessages
+ */
+export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.internalNotes
+ */
+export type User$internalNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InternalNote
+   */
+  select?: Prisma.InternalNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InternalNote
+   */
+  omit?: Prisma.InternalNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InternalNoteInclude<ExtArgs> | null
+  where?: Prisma.InternalNoteWhereInput
+  orderBy?: Prisma.InternalNoteOrderByWithRelationInput | Prisma.InternalNoteOrderByWithRelationInput[]
+  cursor?: Prisma.InternalNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InternalNoteScalarFieldEnum | Prisma.InternalNoteScalarFieldEnum[]
+}
+
+/**
+ * User.inboxTeamMemberships
+ */
+export type User$inboxTeamMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InboxTeamMember
+   */
+  select?: Prisma.InboxTeamMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InboxTeamMember
+   */
+  omit?: Prisma.InboxTeamMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InboxTeamMemberInclude<ExtArgs> | null
+  where?: Prisma.InboxTeamMemberWhereInput
+  orderBy?: Prisma.InboxTeamMemberOrderByWithRelationInput | Prisma.InboxTeamMemberOrderByWithRelationInput[]
+  cursor?: Prisma.InboxTeamMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InboxTeamMemberScalarFieldEnum | Prisma.InboxTeamMemberScalarFieldEnum[]
 }
 
 /**

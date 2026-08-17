@@ -100,12 +100,7 @@ export function ApiKeysPanel({ userRole, exampleConnectionId }: ApiKeysPanelProp
   })}'`;
 
   return (
-    <section className="webhook-module" id="api-keys">
-      <div className="section-heading webhook-heading">
-        <div><p className="eyebrow">Parte 4 · API Gateway outbound</p><h2>API Keys</h2><p>Autoriza a n8n o tu CRM para enviar mensajes sin exponer el token de Meta.</p></div>
-        <span className="tenant-chip">Scope · messages:send</span>
-      </div>
-
+    <section className="dedicated-module">
       <div className="webhook-grid api-key-grid">
         <article className="panel">
           <form className="webhook-form" onSubmit={createApiKey}>

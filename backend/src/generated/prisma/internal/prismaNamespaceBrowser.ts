@@ -61,7 +61,16 @@ export const ModelName = {
   WhatsAppConnection: 'WhatsAppConnection',
   DataDeletionRequest: 'DataDeletionRequest',
   ApiKey: 'ApiKey',
-  WebhookLog: 'WebhookLog'
+  WebhookLog: 'WebhookLog',
+  Contact: 'Contact',
+  Conversation: 'Conversation',
+  Message: 'Message',
+  ConversationAssignment: 'ConversationAssignment',
+  Tag: 'Tag',
+  InternalNote: 'InternalNote',
+  InboxTeam: 'InboxTeam',
+  InboxTeamMember: 'InboxTeamMember',
+  WhatsAppTemplate: 'WhatsAppTemplate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -109,7 +118,8 @@ export const UserScalarFieldEnum = {
   lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  inboxPermissions: 'inboxPermissions'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -288,6 +298,161 @@ export const WebhookLogScalarFieldEnum = {
 export type WebhookLogScalarFieldEnum = (typeof WebhookLogScalarFieldEnum)[keyof typeof WebhookLogScalarFieldEnum]
 
 
+export const ContactScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  waId: 'waId',
+  name: 'name',
+  profileName: 'profileName',
+  email: 'email',
+  company: 'company',
+  notes: 'notes',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  contactId: 'contactId',
+  connectionId: 'connectionId',
+  status: 'status',
+  subject: 'subject',
+  lastMessageAt: 'lastMessageAt',
+  lastInboundAt: 'lastInboundAt',
+  lastOutboundAt: 'lastOutboundAt',
+  lastMessagePreview: 'lastMessagePreview',
+  unreadCount: 'unreadCount',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  conversationId: 'conversationId',
+  connectionId: 'connectionId',
+  senderUserId: 'senderUserId',
+  externalId: 'externalId',
+  direction: 'direction',
+  type: 'type',
+  status: 'status',
+  textBody: 'textBody',
+  content: 'content',
+  errorCode: 'errorCode',
+  errorMessage: 'errorMessage',
+  sentAt: 'sentAt',
+  deliveredAt: 'deliveredAt',
+  readAt: 'readAt',
+  failedAt: 'failedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  retryOfMessageId: 'retryOfMessageId'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const ConversationAssignmentScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  conversationId: 'conversationId',
+  assignedUserId: 'assignedUserId',
+  teamName: 'teamName',
+  teamId: 'teamId',
+  assignedByUserId: 'assignedByUserId',
+  createdAt: 'createdAt',
+  endedAt: 'endedAt'
+} as const
+
+export type ConversationAssignmentScalarFieldEnum = (typeof ConversationAssignmentScalarFieldEnum)[keyof typeof ConversationAssignmentScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  name: 'name',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const InternalNoteScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  conversationId: 'conversationId',
+  authorUserId: 'authorUserId',
+  body: 'body',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InternalNoteScalarFieldEnum = (typeof InternalNoteScalarFieldEnum)[keyof typeof InternalNoteScalarFieldEnum]
+
+
+export const InboxTeamScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  name: 'name',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InboxTeamScalarFieldEnum = (typeof InboxTeamScalarFieldEnum)[keyof typeof InboxTeamScalarFieldEnum]
+
+
+export const InboxTeamMemberScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  teamId: 'teamId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type InboxTeamMemberScalarFieldEnum = (typeof InboxTeamMemberScalarFieldEnum)[keyof typeof InboxTeamMemberScalarFieldEnum]
+
+
+export const WhatsAppTemplateScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  tenantId: 'tenantId',
+  connectionId: 'connectionId',
+  metaTemplateId: 'metaTemplateId',
+  name: 'name',
+  language: 'language',
+  category: 'category',
+  status: 'status',
+  qualityScore: 'qualityScore',
+  rejectionReason: 'rejectionReason',
+  components: 'components',
+  rawPayload: 'rawPayload',
+  lastSyncedAt: 'lastSyncedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WhatsAppTemplateScalarFieldEnum = (typeof WhatsAppTemplateScalarFieldEnum)[keyof typeof WhatsAppTemplateScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -449,4 +614,85 @@ export const WebhookLogOrderByRelevanceFieldEnum = {
 } as const
 
 export type WebhookLogOrderByRelevanceFieldEnum = (typeof WebhookLogOrderByRelevanceFieldEnum)[keyof typeof WebhookLogOrderByRelevanceFieldEnum]
+
+
+export const ContactOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  waId: 'waId',
+  name: 'name',
+  profileName: 'profileName',
+  email: 'email',
+  company: 'company',
+  notes: 'notes'
+} as const
+
+export type ContactOrderByRelevanceFieldEnum = (typeof ContactOrderByRelevanceFieldEnum)[keyof typeof ContactOrderByRelevanceFieldEnum]
+
+
+export const ConversationOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  subject: 'subject',
+  lastMessagePreview: 'lastMessagePreview'
+} as const
+
+export type ConversationOrderByRelevanceFieldEnum = (typeof ConversationOrderByRelevanceFieldEnum)[keyof typeof ConversationOrderByRelevanceFieldEnum]
+
+
+export const MessageOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  externalId: 'externalId',
+  textBody: 'textBody',
+  errorCode: 'errorCode',
+  errorMessage: 'errorMessage'
+} as const
+
+export type MessageOrderByRelevanceFieldEnum = (typeof MessageOrderByRelevanceFieldEnum)[keyof typeof MessageOrderByRelevanceFieldEnum]
+
+
+export const ConversationAssignmentOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  teamName: 'teamName'
+} as const
+
+export type ConversationAssignmentOrderByRelevanceFieldEnum = (typeof ConversationAssignmentOrderByRelevanceFieldEnum)[keyof typeof ConversationAssignmentOrderByRelevanceFieldEnum]
+
+
+export const TagOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  name: 'name',
+  color: 'color'
+} as const
+
+export type TagOrderByRelevanceFieldEnum = (typeof TagOrderByRelevanceFieldEnum)[keyof typeof TagOrderByRelevanceFieldEnum]
+
+
+export const InternalNoteOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  body: 'body'
+} as const
+
+export type InternalNoteOrderByRelevanceFieldEnum = (typeof InternalNoteOrderByRelevanceFieldEnum)[keyof typeof InternalNoteOrderByRelevanceFieldEnum]
+
+
+export const InboxTeamOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  name: 'name',
+  color: 'color'
+} as const
+
+export type InboxTeamOrderByRelevanceFieldEnum = (typeof InboxTeamOrderByRelevanceFieldEnum)[keyof typeof InboxTeamOrderByRelevanceFieldEnum]
+
+
+export const WhatsAppTemplateOrderByRelevanceFieldEnum = {
+  publicId: 'publicId',
+  metaTemplateId: 'metaTemplateId',
+  name: 'name',
+  language: 'language',
+  category: 'category',
+  status: 'status',
+  qualityScore: 'qualityScore',
+  rejectionReason: 'rejectionReason'
+} as const
+
+export type WhatsAppTemplateOrderByRelevanceFieldEnum = (typeof WhatsAppTemplateOrderByRelevanceFieldEnum)[keyof typeof WhatsAppTemplateOrderByRelevanceFieldEnum]
 

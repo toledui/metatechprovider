@@ -259,6 +259,15 @@ export type TenantWhereInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestListRelationFilter
   invitations?: Prisma.TenantInvitationListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  contacts?: Prisma.ContactListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  conversationAssignments?: Prisma.ConversationAssignmentListRelationFilter
+  tags?: Prisma.TagListRelationFilter
+  internalNotes?: Prisma.InternalNoteListRelationFilter
+  inboxTeams?: Prisma.InboxTeamListRelationFilter
+  inboxTeamMemberships?: Prisma.InboxTeamMemberListRelationFilter
+  whatsappTemplates?: Prisma.WhatsAppTemplateListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -279,6 +288,15 @@ export type TenantOrderByWithRelationInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestOrderByRelationAggregateInput
   invitations?: Prisma.TenantInvitationOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  contacts?: Prisma.ContactOrderByRelationAggregateInput
+  conversations?: Prisma.ConversationOrderByRelationAggregateInput
+  messages?: Prisma.MessageOrderByRelationAggregateInput
+  conversationAssignments?: Prisma.ConversationAssignmentOrderByRelationAggregateInput
+  tags?: Prisma.TagOrderByRelationAggregateInput
+  internalNotes?: Prisma.InternalNoteOrderByRelationAggregateInput
+  inboxTeams?: Prisma.InboxTeamOrderByRelationAggregateInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberOrderByRelationAggregateInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateOrderByRelationAggregateInput
   _relevance?: Prisma.TenantOrderByRelevanceInput
 }
 
@@ -303,6 +321,15 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   dataDeletionRequests?: Prisma.DataDeletionRequestListRelationFilter
   invitations?: Prisma.TenantInvitationListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  contacts?: Prisma.ContactListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  conversationAssignments?: Prisma.ConversationAssignmentListRelationFilter
+  tags?: Prisma.TagListRelationFilter
+  internalNotes?: Prisma.InternalNoteListRelationFilter
+  inboxTeams?: Prisma.InboxTeamListRelationFilter
+  inboxTeamMemberships?: Prisma.InboxTeamMemberListRelationFilter
+  whatsappTemplates?: Prisma.WhatsAppTemplateListRelationFilter
 }, "id" | "publicId" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -357,6 +384,15 @@ export type TenantCreateInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -377,6 +413,15 @@ export type TenantUncheckedCreateInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -397,6 +442,15 @@ export type TenantUpdateInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -417,6 +471,15 @@ export type TenantUncheckedUpdateInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -645,6 +708,132 @@ export type TenantUpdateOneWithoutWebhookLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutWebhookLogsInput, Prisma.TenantUpdateWithoutWebhookLogsInput>, Prisma.TenantUncheckedUpdateWithoutWebhookLogsInput>
 }
 
+export type TenantCreateNestedOneWithoutContactsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutContactsInput, Prisma.TenantUncheckedCreateWithoutContactsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutContactsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutContactsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutContactsInput, Prisma.TenantUncheckedCreateWithoutContactsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutContactsInput
+  upsert?: Prisma.TenantUpsertWithoutContactsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutContactsInput, Prisma.TenantUpdateWithoutContactsInput>, Prisma.TenantUncheckedUpdateWithoutContactsInput>
+}
+
+export type TenantCreateNestedOneWithoutConversationsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutConversationsInput, Prisma.TenantUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutConversationsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutConversationsInput, Prisma.TenantUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutConversationsInput
+  upsert?: Prisma.TenantUpsertWithoutConversationsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutConversationsInput, Prisma.TenantUpdateWithoutConversationsInput>, Prisma.TenantUncheckedUpdateWithoutConversationsInput>
+}
+
+export type TenantCreateNestedOneWithoutMessagesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutMessagesInput, Prisma.TenantUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutMessagesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutMessagesInput, Prisma.TenantUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutMessagesInput
+  upsert?: Prisma.TenantUpsertWithoutMessagesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutMessagesInput, Prisma.TenantUpdateWithoutMessagesInput>, Prisma.TenantUncheckedUpdateWithoutMessagesInput>
+}
+
+export type TenantCreateNestedOneWithoutConversationAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutConversationAssignmentsInput, Prisma.TenantUncheckedCreateWithoutConversationAssignmentsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutConversationAssignmentsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutConversationAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutConversationAssignmentsInput, Prisma.TenantUncheckedCreateWithoutConversationAssignmentsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutConversationAssignmentsInput
+  upsert?: Prisma.TenantUpsertWithoutConversationAssignmentsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutConversationAssignmentsInput, Prisma.TenantUpdateWithoutConversationAssignmentsInput>, Prisma.TenantUncheckedUpdateWithoutConversationAssignmentsInput>
+}
+
+export type TenantCreateNestedOneWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutTagsInput, Prisma.TenantUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutTagsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutTagsInput, Prisma.TenantUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutTagsInput
+  upsert?: Prisma.TenantUpsertWithoutTagsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutTagsInput, Prisma.TenantUpdateWithoutTagsInput>, Prisma.TenantUncheckedUpdateWithoutTagsInput>
+}
+
+export type TenantCreateNestedOneWithoutInternalNotesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInternalNotesInput, Prisma.TenantUncheckedCreateWithoutInternalNotesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInternalNotesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutInternalNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInternalNotesInput, Prisma.TenantUncheckedCreateWithoutInternalNotesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInternalNotesInput
+  upsert?: Prisma.TenantUpsertWithoutInternalNotesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutInternalNotesInput, Prisma.TenantUpdateWithoutInternalNotesInput>, Prisma.TenantUncheckedUpdateWithoutInternalNotesInput>
+}
+
+export type TenantCreateNestedOneWithoutInboxTeamsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInboxTeamsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutInboxTeamsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInboxTeamsInput
+  upsert?: Prisma.TenantUpsertWithoutInboxTeamsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutInboxTeamsInput, Prisma.TenantUpdateWithoutInboxTeamsInput>, Prisma.TenantUncheckedUpdateWithoutInboxTeamsInput>
+}
+
+export type TenantCreateNestedOneWithoutInboxTeamMembershipsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamMembershipsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamMembershipsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInboxTeamMembershipsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutInboxTeamMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamMembershipsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamMembershipsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInboxTeamMembershipsInput
+  upsert?: Prisma.TenantUpsertWithoutInboxTeamMembershipsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutInboxTeamMembershipsInput, Prisma.TenantUpdateWithoutInboxTeamMembershipsInput>, Prisma.TenantUncheckedUpdateWithoutInboxTeamMembershipsInput>
+}
+
+export type TenantCreateNestedOneWithoutWhatsappTemplatesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutWhatsappTemplatesInput, Prisma.TenantUncheckedCreateWithoutWhatsappTemplatesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutWhatsappTemplatesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutWhatsappTemplatesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutWhatsappTemplatesInput, Prisma.TenantUncheckedCreateWithoutWhatsappTemplatesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutWhatsappTemplatesInput
+  upsert?: Prisma.TenantUpsertWithoutWhatsappTemplatesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutWhatsappTemplatesInput, Prisma.TenantUpdateWithoutWhatsappTemplatesInput>, Prisma.TenantUncheckedUpdateWithoutWhatsappTemplatesInput>
+}
+
 export type TenantCreateWithoutUsersInput = {
   id?: bigint | number
   publicId?: string
@@ -662,6 +851,15 @@ export type TenantCreateWithoutUsersInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUsersInput = {
@@ -681,6 +879,15 @@ export type TenantUncheckedCreateWithoutUsersInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUsersInput = {
@@ -716,6 +923,15 @@ export type TenantUpdateWithoutUsersInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -735,6 +951,15 @@ export type TenantUncheckedUpdateWithoutUsersInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutInvitationsInput = {
@@ -754,6 +979,15 @@ export type TenantCreateWithoutInvitationsInput = {
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
   dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutInvitationsInput = {
@@ -773,6 +1007,15 @@ export type TenantUncheckedCreateWithoutInvitationsInput = {
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutInvitationsInput = {
@@ -808,6 +1051,15 @@ export type TenantUpdateWithoutInvitationsInput = {
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
   dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutInvitationsInput = {
@@ -827,6 +1079,15 @@ export type TenantUncheckedUpdateWithoutInvitationsInput = {
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -846,6 +1107,15 @@ export type TenantCreateWithoutAuditLogsInput = {
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
   dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -865,6 +1135,15 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -900,6 +1179,15 @@ export type TenantUpdateWithoutAuditLogsInput = {
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
   dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -919,6 +1207,15 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWhatsappConnectionsInput = {
@@ -938,6 +1235,15 @@ export type TenantCreateWithoutWhatsappConnectionsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWhatsappConnectionsInput = {
@@ -957,6 +1263,15 @@ export type TenantUncheckedCreateWithoutWhatsappConnectionsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWhatsappConnectionsInput = {
@@ -992,6 +1307,15 @@ export type TenantUpdateWithoutWhatsappConnectionsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWhatsappConnectionsInput = {
@@ -1011,6 +1335,15 @@ export type TenantUncheckedUpdateWithoutWhatsappConnectionsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDataDeletionRequestsInput = {
@@ -1030,6 +1363,15 @@ export type TenantCreateWithoutDataDeletionRequestsInput = {
   webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDataDeletionRequestsInput = {
@@ -1049,6 +1391,15 @@ export type TenantUncheckedCreateWithoutDataDeletionRequestsInput = {
   webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDataDeletionRequestsInput = {
@@ -1084,6 +1435,15 @@ export type TenantUpdateWithoutDataDeletionRequestsInput = {
   webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDataDeletionRequestsInput = {
@@ -1103,6 +1463,15 @@ export type TenantUncheckedUpdateWithoutDataDeletionRequestsInput = {
   webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutApiKeysInput = {
@@ -1122,6 +1491,15 @@ export type TenantCreateWithoutApiKeysInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutApiKeysInput = {
@@ -1141,6 +1519,15 @@ export type TenantUncheckedCreateWithoutApiKeysInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutApiKeysInput = {
@@ -1176,6 +1563,15 @@ export type TenantUpdateWithoutApiKeysInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutApiKeysInput = {
@@ -1195,6 +1591,15 @@ export type TenantUncheckedUpdateWithoutApiKeysInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWebhookLogsInput = {
@@ -1214,6 +1619,15 @@ export type TenantCreateWithoutWebhookLogsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWebhookLogsInput = {
@@ -1233,6 +1647,15 @@ export type TenantUncheckedCreateWithoutWebhookLogsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
   invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWebhookLogsInput = {
@@ -1268,6 +1691,15 @@ export type TenantUpdateWithoutWebhookLogsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWebhookLogsInput = {
@@ -1287,6 +1719,1167 @@ export type TenantUncheckedUpdateWithoutWebhookLogsInput = {
   dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
   invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutContactsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutContactsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutContactsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutContactsInput, Prisma.TenantUncheckedCreateWithoutContactsInput>
+}
+
+export type TenantUpsertWithoutContactsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutContactsInput, Prisma.TenantUncheckedUpdateWithoutContactsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutContactsInput, Prisma.TenantUncheckedCreateWithoutContactsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutContactsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutContactsInput, Prisma.TenantUncheckedUpdateWithoutContactsInput>
+}
+
+export type TenantUpdateWithoutContactsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutContactsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutConversationsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutConversationsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutConversationsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutConversationsInput, Prisma.TenantUncheckedCreateWithoutConversationsInput>
+}
+
+export type TenantUpsertWithoutConversationsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutConversationsInput, Prisma.TenantUncheckedUpdateWithoutConversationsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutConversationsInput, Prisma.TenantUncheckedCreateWithoutConversationsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutConversationsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutConversationsInput, Prisma.TenantUncheckedUpdateWithoutConversationsInput>
+}
+
+export type TenantUpdateWithoutConversationsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutConversationsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutMessagesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutMessagesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutMessagesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutMessagesInput, Prisma.TenantUncheckedCreateWithoutMessagesInput>
+}
+
+export type TenantUpsertWithoutMessagesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutMessagesInput, Prisma.TenantUncheckedUpdateWithoutMessagesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutMessagesInput, Prisma.TenantUncheckedCreateWithoutMessagesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutMessagesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutMessagesInput, Prisma.TenantUncheckedUpdateWithoutMessagesInput>
+}
+
+export type TenantUpdateWithoutMessagesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutMessagesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutConversationAssignmentsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutConversationAssignmentsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutConversationAssignmentsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutConversationAssignmentsInput, Prisma.TenantUncheckedCreateWithoutConversationAssignmentsInput>
+}
+
+export type TenantUpsertWithoutConversationAssignmentsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutConversationAssignmentsInput, Prisma.TenantUncheckedUpdateWithoutConversationAssignmentsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutConversationAssignmentsInput, Prisma.TenantUncheckedCreateWithoutConversationAssignmentsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutConversationAssignmentsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutConversationAssignmentsInput, Prisma.TenantUncheckedUpdateWithoutConversationAssignmentsInput>
+}
+
+export type TenantUpdateWithoutConversationAssignmentsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutConversationAssignmentsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutTagsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutTagsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutTagsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutTagsInput, Prisma.TenantUncheckedCreateWithoutTagsInput>
+}
+
+export type TenantUpsertWithoutTagsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutTagsInput, Prisma.TenantUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutTagsInput, Prisma.TenantUncheckedCreateWithoutTagsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutTagsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutTagsInput, Prisma.TenantUncheckedUpdateWithoutTagsInput>
+}
+
+export type TenantUpdateWithoutTagsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutInternalNotesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutInternalNotesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutInternalNotesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInternalNotesInput, Prisma.TenantUncheckedCreateWithoutInternalNotesInput>
+}
+
+export type TenantUpsertWithoutInternalNotesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutInternalNotesInput, Prisma.TenantUncheckedUpdateWithoutInternalNotesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInternalNotesInput, Prisma.TenantUncheckedCreateWithoutInternalNotesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutInternalNotesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutInternalNotesInput, Prisma.TenantUncheckedUpdateWithoutInternalNotesInput>
+}
+
+export type TenantUpdateWithoutInternalNotesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutInternalNotesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutInboxTeamsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutInboxTeamsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutInboxTeamsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamsInput>
+}
+
+export type TenantUpsertWithoutInboxTeamsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutInboxTeamsInput, Prisma.TenantUncheckedUpdateWithoutInboxTeamsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutInboxTeamsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutInboxTeamsInput, Prisma.TenantUncheckedUpdateWithoutInboxTeamsInput>
+}
+
+export type TenantUpdateWithoutInboxTeamsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutInboxTeamsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutInboxTeamMembershipsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutInboxTeamMembershipsInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutInboxTeamMembershipsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamMembershipsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamMembershipsInput>
+}
+
+export type TenantUpsertWithoutInboxTeamMembershipsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutInboxTeamMembershipsInput, Prisma.TenantUncheckedUpdateWithoutInboxTeamMembershipsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInboxTeamMembershipsInput, Prisma.TenantUncheckedCreateWithoutInboxTeamMembershipsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutInboxTeamMembershipsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutInboxTeamMembershipsInput, Prisma.TenantUncheckedUpdateWithoutInboxTeamMembershipsInput>
+}
+
+export type TenantUpdateWithoutInboxTeamMembershipsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutInboxTeamMembershipsInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappTemplates?: Prisma.WhatsAppTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutWhatsappTemplatesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutWhatsappTemplatesInput = {
+  id?: bigint | number
+  publicId?: string
+  name: string
+  slug: string
+  status?: $Enums.TenantStatus
+  timezone?: string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedCreateNestedManyWithoutTenantInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+  webhookLogs?: Prisma.WebhookLogUncheckedCreateNestedManyWithoutTenantInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedCreateNestedManyWithoutTenantInput
+  invitations?: Prisma.TenantInvitationUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutTenantInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTenantInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutTenantInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  internalNotes?: Prisma.InternalNoteUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeams?: Prisma.InboxTeamUncheckedCreateNestedManyWithoutTenantInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutWhatsappTemplatesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutWhatsappTemplatesInput, Prisma.TenantUncheckedCreateWithoutWhatsappTemplatesInput>
+}
+
+export type TenantUpsertWithoutWhatsappTemplatesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutWhatsappTemplatesInput, Prisma.TenantUncheckedUpdateWithoutWhatsappTemplatesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutWhatsappTemplatesInput, Prisma.TenantUncheckedCreateWithoutWhatsappTemplatesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutWhatsappTemplatesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutWhatsappTemplatesInput, Prisma.TenantUncheckedUpdateWithoutWhatsappTemplatesInput>
+}
+
+export type TenantUpdateWithoutWhatsappTemplatesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutWhatsappTemplatesInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  whatsappConnections?: Prisma.WhatsAppConnectionUncheckedUpdateManyWithoutTenantNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+  webhookLogs?: Prisma.WebhookLogUncheckedUpdateManyWithoutTenantNestedInput
+  dataDeletionRequests?: Prisma.DataDeletionRequestUncheckedUpdateManyWithoutTenantNestedInput
+  invitations?: Prisma.TenantInvitationUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutTenantNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutTenantNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutTenantNestedInput
+  conversationAssignments?: Prisma.ConversationAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  internalNotes?: Prisma.InternalNoteUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeams?: Prisma.InboxTeamUncheckedUpdateManyWithoutTenantNestedInput
+  inboxTeamMemberships?: Prisma.InboxTeamMemberUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -1302,6 +2895,15 @@ export type TenantCountOutputType = {
   dataDeletionRequests: number
   invitations: number
   auditLogs: number
+  contacts: number
+  conversations: number
+  messages: number
+  conversationAssignments: number
+  tags: number
+  internalNotes: number
+  inboxTeams: number
+  inboxTeamMemberships: number
+  whatsappTemplates: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1312,6 +2914,15 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   dataDeletionRequests?: boolean | TenantCountOutputTypeCountDataDeletionRequestsArgs
   invitations?: boolean | TenantCountOutputTypeCountInvitationsArgs
   auditLogs?: boolean | TenantCountOutputTypeCountAuditLogsArgs
+  contacts?: boolean | TenantCountOutputTypeCountContactsArgs
+  conversations?: boolean | TenantCountOutputTypeCountConversationsArgs
+  messages?: boolean | TenantCountOutputTypeCountMessagesArgs
+  conversationAssignments?: boolean | TenantCountOutputTypeCountConversationAssignmentsArgs
+  tags?: boolean | TenantCountOutputTypeCountTagsArgs
+  internalNotes?: boolean | TenantCountOutputTypeCountInternalNotesArgs
+  inboxTeams?: boolean | TenantCountOutputTypeCountInboxTeamsArgs
+  inboxTeamMemberships?: boolean | TenantCountOutputTypeCountInboxTeamMembershipsArgs
+  whatsappTemplates?: boolean | TenantCountOutputTypeCountWhatsappTemplatesArgs
 }
 
 /**
@@ -1373,6 +2984,69 @@ export type TenantCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Type
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContactWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountConversationAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationAssignmentWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TagWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountInternalNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InternalNoteWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountInboxTeamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InboxTeamWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountInboxTeamMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InboxTeamMemberWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountWhatsappTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WhatsAppTemplateWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1392,6 +3066,15 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   dataDeletionRequests?: boolean | Prisma.Tenant$dataDeletionRequestsArgs<ExtArgs>
   invitations?: boolean | Prisma.Tenant$invitationsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
+  contacts?: boolean | Prisma.Tenant$contactsArgs<ExtArgs>
+  conversations?: boolean | Prisma.Tenant$conversationsArgs<ExtArgs>
+  messages?: boolean | Prisma.Tenant$messagesArgs<ExtArgs>
+  conversationAssignments?: boolean | Prisma.Tenant$conversationAssignmentsArgs<ExtArgs>
+  tags?: boolean | Prisma.Tenant$tagsArgs<ExtArgs>
+  internalNotes?: boolean | Prisma.Tenant$internalNotesArgs<ExtArgs>
+  inboxTeams?: boolean | Prisma.Tenant$inboxTeamsArgs<ExtArgs>
+  inboxTeamMemberships?: boolean | Prisma.Tenant$inboxTeamMembershipsArgs<ExtArgs>
+  whatsappTemplates?: boolean | Prisma.Tenant$whatsappTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -1419,6 +3102,15 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   dataDeletionRequests?: boolean | Prisma.Tenant$dataDeletionRequestsArgs<ExtArgs>
   invitations?: boolean | Prisma.Tenant$invitationsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
+  contacts?: boolean | Prisma.Tenant$contactsArgs<ExtArgs>
+  conversations?: boolean | Prisma.Tenant$conversationsArgs<ExtArgs>
+  messages?: boolean | Prisma.Tenant$messagesArgs<ExtArgs>
+  conversationAssignments?: boolean | Prisma.Tenant$conversationAssignmentsArgs<ExtArgs>
+  tags?: boolean | Prisma.Tenant$tagsArgs<ExtArgs>
+  internalNotes?: boolean | Prisma.Tenant$internalNotesArgs<ExtArgs>
+  inboxTeams?: boolean | Prisma.Tenant$inboxTeamsArgs<ExtArgs>
+  inboxTeamMemberships?: boolean | Prisma.Tenant$inboxTeamMembershipsArgs<ExtArgs>
+  whatsappTemplates?: boolean | Prisma.Tenant$whatsappTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1432,6 +3124,15 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     dataDeletionRequests: Prisma.$DataDeletionRequestPayload<ExtArgs>[]
     invitations: Prisma.$TenantInvitationPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    contacts: Prisma.$ContactPayload<ExtArgs>[]
+    conversations: Prisma.$ConversationPayload<ExtArgs>[]
+    messages: Prisma.$MessagePayload<ExtArgs>[]
+    conversationAssignments: Prisma.$ConversationAssignmentPayload<ExtArgs>[]
+    tags: Prisma.$TagPayload<ExtArgs>[]
+    internalNotes: Prisma.$InternalNotePayload<ExtArgs>[]
+    inboxTeams: Prisma.$InboxTeamPayload<ExtArgs>[]
+    inboxTeamMemberships: Prisma.$InboxTeamMemberPayload<ExtArgs>[]
+    whatsappTemplates: Prisma.$WhatsAppTemplatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -1791,6 +3492,15 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   dataDeletionRequests<T extends Prisma.Tenant$dataDeletionRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$dataDeletionRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DataDeletionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invitations<T extends Prisma.Tenant$invitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Tenant$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contacts<T extends Prisma.Tenant$contactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversations<T extends Prisma.Tenant$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messages<T extends Prisma.Tenant$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationAssignments<T extends Prisma.Tenant$conversationAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$conversationAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tags<T extends Prisma.Tenant$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  internalNotes<T extends Prisma.Tenant$internalNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$internalNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InternalNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inboxTeams<T extends Prisma.Tenant$inboxTeamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$inboxTeamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InboxTeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inboxTeamMemberships<T extends Prisma.Tenant$inboxTeamMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$inboxTeamMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InboxTeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  whatsappTemplates<T extends Prisma.Tenant$whatsappTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$whatsappTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2343,6 +4053,222 @@ export type Tenant$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * Tenant.contacts
+ */
+export type Tenant$contactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Contact
+   */
+  select?: Prisma.ContactSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Contact
+   */
+  omit?: Prisma.ContactOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactInclude<ExtArgs> | null
+  where?: Prisma.ContactWhereInput
+  orderBy?: Prisma.ContactOrderByWithRelationInput | Prisma.ContactOrderByWithRelationInput[]
+  cursor?: Prisma.ContactWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContactScalarFieldEnum | Prisma.ContactScalarFieldEnum[]
+}
+
+/**
+ * Tenant.conversations
+ */
+export type Tenant$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * Tenant.messages
+ */
+export type Tenant$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * Tenant.conversationAssignments
+ */
+export type Tenant$conversationAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConversationAssignment
+   */
+  select?: Prisma.ConversationAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConversationAssignment
+   */
+  omit?: Prisma.ConversationAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ConversationAssignmentWhereInput
+  orderBy?: Prisma.ConversationAssignmentOrderByWithRelationInput | Prisma.ConversationAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationAssignmentScalarFieldEnum | Prisma.ConversationAssignmentScalarFieldEnum[]
+}
+
+/**
+ * Tenant.tags
+ */
+export type Tenant$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Tag
+   */
+  select?: Prisma.TagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Tag
+   */
+  omit?: Prisma.TagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TagInclude<ExtArgs> | null
+  where?: Prisma.TagWhereInput
+  orderBy?: Prisma.TagOrderByWithRelationInput | Prisma.TagOrderByWithRelationInput[]
+  cursor?: Prisma.TagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TagScalarFieldEnum | Prisma.TagScalarFieldEnum[]
+}
+
+/**
+ * Tenant.internalNotes
+ */
+export type Tenant$internalNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InternalNote
+   */
+  select?: Prisma.InternalNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InternalNote
+   */
+  omit?: Prisma.InternalNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InternalNoteInclude<ExtArgs> | null
+  where?: Prisma.InternalNoteWhereInput
+  orderBy?: Prisma.InternalNoteOrderByWithRelationInput | Prisma.InternalNoteOrderByWithRelationInput[]
+  cursor?: Prisma.InternalNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InternalNoteScalarFieldEnum | Prisma.InternalNoteScalarFieldEnum[]
+}
+
+/**
+ * Tenant.inboxTeams
+ */
+export type Tenant$inboxTeamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InboxTeam
+   */
+  select?: Prisma.InboxTeamSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InboxTeam
+   */
+  omit?: Prisma.InboxTeamOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InboxTeamInclude<ExtArgs> | null
+  where?: Prisma.InboxTeamWhereInput
+  orderBy?: Prisma.InboxTeamOrderByWithRelationInput | Prisma.InboxTeamOrderByWithRelationInput[]
+  cursor?: Prisma.InboxTeamWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InboxTeamScalarFieldEnum | Prisma.InboxTeamScalarFieldEnum[]
+}
+
+/**
+ * Tenant.inboxTeamMemberships
+ */
+export type Tenant$inboxTeamMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InboxTeamMember
+   */
+  select?: Prisma.InboxTeamMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InboxTeamMember
+   */
+  omit?: Prisma.InboxTeamMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InboxTeamMemberInclude<ExtArgs> | null
+  where?: Prisma.InboxTeamMemberWhereInput
+  orderBy?: Prisma.InboxTeamMemberOrderByWithRelationInput | Prisma.InboxTeamMemberOrderByWithRelationInput[]
+  cursor?: Prisma.InboxTeamMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InboxTeamMemberScalarFieldEnum | Prisma.InboxTeamMemberScalarFieldEnum[]
+}
+
+/**
+ * Tenant.whatsappTemplates
+ */
+export type Tenant$whatsappTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WhatsAppTemplate
+   */
+  select?: Prisma.WhatsAppTemplateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WhatsAppTemplate
+   */
+  omit?: Prisma.WhatsAppTemplateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WhatsAppTemplateInclude<ExtArgs> | null
+  where?: Prisma.WhatsAppTemplateWhereInput
+  orderBy?: Prisma.WhatsAppTemplateOrderByWithRelationInput | Prisma.WhatsAppTemplateOrderByWithRelationInput[]
+  cursor?: Prisma.WhatsAppTemplateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WhatsAppTemplateScalarFieldEnum | Prisma.WhatsAppTemplateScalarFieldEnum[]
 }
 
 /**

@@ -154,6 +154,8 @@ curl -I http://127.0.0.1:3000
 
 `pm2 status` debe mostrar `thagencia-backend`, `thagencia-frontend` y `thagencia-webhook-worker` en estado `online`.
 
+Para ejecutar más de una instancia de `thagencia-backend`, configura `REDIS_URL` con TLS y autenticación cuando el proveedor lo soporte. Sin Redis, mantén una sola instancia porque los eventos SSE solo se comparten dentro del proceso.
+
 ## 6. Nginx
 
 Crear `/etc/nginx/sites-available/thagencia-provider`:
@@ -164,6 +166,18 @@ server {
     server_name provider.ejemplo.com;
 
     client_max_body_size 25m;
+
+    location = /api/inbox/events {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 1h;
+    }
 
     location /api/ {
         proxy_pass http://127.0.0.1:3001;

@@ -112,11 +112,8 @@ export function WebhookPanel({ connections, onConnectionUpdated }: WebhookPanelP
   }
 
   return (
-    <section className="webhook-module" id="webhooks">
-      <div className="section-heading webhook-heading">
-        <div><p className="eyebrow">Parte 3 · Enrutamiento inbound</p><h2>Webhook de n8n o CRM</h2><p>Los eventos de Meta se validan, persisten y entregan firmados a este destino.</p></div>
-        <button className="button button-ghost button-small" type="button" onClick={() => void loadLogs()}>Actualizar eventos</button>
-      </div>
+    <section className="dedicated-module">
+      <div className="module-toolbar"><p>Los eventos se validan, persisten y entregan con firma HMAC.</p><button className="button button-ghost button-small" type="button" onClick={() => void loadLogs()}>Actualizar eventos</button></div>
 
       <div className="webhook-grid">
         <article className="panel">

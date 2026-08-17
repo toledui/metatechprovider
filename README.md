@@ -52,6 +52,11 @@ Este comando levanta simultáneamente:
 Paneles:
 
 - Cliente/tenant: `https://localhost:3000/dashboard`
+- Conexiones: `https://localhost:3000/dashboard/connections`
+- Webhooks: `https://localhost:3000/dashboard/webhooks`
+- API Keys: `https://localhost:3000/dashboard/api-keys`
+- Inbox: `https://localhost:3000/dashboard/inbox`
+- Equipo: `https://localhost:3000/dashboard/team`
 - Superadmin THagencia: `https://localhost:3000/superadmin`
 
 Acceso público:

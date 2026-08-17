@@ -12,6 +12,7 @@ import { prisma } from "../lib/prisma.js";
 import { createOpaqueToken, hashPassword, sha256 } from "../lib/security.js";
 import { sendAppEmail, type AppEmail } from "../mail/service.js";
 import { tenantInvitationEmail } from "../mail/templates.js";
+import { inboxPermissionKeys, resolveInboxPermissions } from "../inbox/permissions.js";
 
 const INVITATION_TTL_MS = 72 * 60 * 60 * 1_000;
 const emailSchema = z.email().max(191).transform((value) => value.toLowerCase());
@@ -28,6 +29,10 @@ const acceptSchema = z.object({
 });
 const roleSchema = z.object({ role: z.enum([UserRole.ADMIN, UserRole.MEMBER]) });
 const transferSchema = z.object({ newOwnerId: z.string().min(1).max(30) });
+const groupParamsSchema = z.object({ teamId: z.string().min(1).max(30) });
+const groupSchema = z.object({ name: z.string().trim().min(1).max(100), color: z.string().regex(/^#[0-9a-fA-F]{6}$/).default("#ff6b35") });
+const groupMembersSchema = z.object({ userIds: z.array(z.string().min(1).max(30)).max(200) });
+const inboxPermissionsSchema = z.object(Object.fromEntries(inboxPermissionKeys.map((key) => [key, z.boolean()])) as Record<typeof inboxPermissionKeys[number], z.ZodBoolean>);
 
 export interface TeamRoutesOptions {
   sendEmail?: (email: AppEmail) => Promise<unknown>;
@@ -47,6 +52,7 @@ function publicMember(member: {
   status: UserStatus;
   lastLoginAt: Date | null;
   createdAt: Date;
+  inboxPermissions?: unknown;
 }) {
   return {
     id: member.publicId,
@@ -56,6 +62,7 @@ function publicMember(member: {
     status: member.status,
     lastLoginAt: member.lastLoginAt?.toISOString() ?? null,
     createdAt: member.createdAt.toISOString(),
+    inboxPermissions: resolveInboxPermissions(member.role, member.inboxPermissions),
   };
 }
 
@@ -95,7 +102,7 @@ export async function teamRoutes(app: FastifyInstance, options: TeamRoutesOption
       },
       data: { status: TenantInvitationStatus.EXPIRED },
     });
-    const [members, invitations] = await prisma.$transaction([
+    const [members, invitations, inboxTeams] = await prisma.$transaction([
       prisma.user.findMany({
         where: { tenantId: auth.tenantId, deletedAt: null },
         orderBy: [{ role: "asc" }, { createdAt: "asc" }],
@@ -106,8 +113,20 @@ export async function teamRoutes(app: FastifyInstance, options: TeamRoutesOption
         orderBy: { createdAt: "desc" },
         take: 100,
       }),
+      prisma.inboxTeam.findMany({
+        where: { tenantId: auth.tenantId },
+        include: { members: { include: { user: { select: { publicId: true, name: true } } } } },
+        orderBy: { name: "asc" },
+      }),
     ]);
-    return { members: members.map(publicMember), invitations: invitations.map(publicInvitation) };
+    return {
+      members: members.map(publicMember),
+      invitations: invitations.map(publicInvitation),
+      inboxTeams: inboxTeams.map((team) => ({
+        id: team.publicId, name: team.name, color: team.color,
+        members: team.members.map((membership) => ({ id: membership.user.publicId, name: membership.user.name })),
+      })),
+    };
   });
 
   app.post("/api/team/invitations", async (request, reply) => {
@@ -373,6 +392,100 @@ export async function teamRoutes(app: FastifyInstance, options: TeamRoutesOption
     return reply.status(204).send();
   });
 
+  app.patch("/api/team/members/:memberId/inbox-permissions", async (request) => {
+    assertSameOrigin(request);
+    const auth = await requireAuth(request);
+    assertCanManageTeam(auth.userRole);
+    const params = memberParamsSchema.safeParse(request.params);
+    const body = inboxPermissionsSchema.safeParse(request.body);
+    if (!params.success || !body.success) throw new AppError(422, "validation_error", "Miembro o permisos inválidos.");
+    const member = await prisma.user.findFirst({ where: { publicId: params.data.memberId, tenantId: auth.tenantId, deletedAt: null } });
+    if (!member) throw new AppError(404, "member_not_found", "Miembro no encontrado.");
+    if (member.role !== UserRole.MEMBER) throw new AppError(409, "role_has_full_inbox_access", "Owner y Admin conservan acceso completo al inbox por su rol.");
+    const updated = await prisma.$transaction(async (transaction) => {
+      const saved = await transaction.user.update({ where: { id: member.id }, data: { inboxPermissions: body.data } });
+      await transaction.auditLog.create({ data: {
+        tenantId: auth.tenantId, actorUserId: auth.userId, action: "team.member.inbox_permissions_changed",
+        entityType: "user", entityPublicId: member.publicId, metadata: body.data,
+        ipAddress: request.ip.slice(0, 64),
+      } });
+      return saved;
+    });
+    return { member: publicMember(updated) };
+  });
+
+  app.post("/api/team/groups", async (request, reply) => {
+    assertSameOrigin(request);
+    const auth = await requireAuth(request);
+    assertCanManageTeam(auth.userRole);
+    const body = groupSchema.safeParse(request.body);
+    if (!body.success) throw new AppError(422, "validation_error", "Nombre o color de equipo inválido.");
+    const team = await prisma.$transaction(async (transaction) => {
+      const saved = await transaction.inboxTeam.create({ data: { tenantId: auth.tenantId, name: body.data.name, color: body.data.color.toLowerCase() } });
+      await transaction.auditLog.create({ data: { tenantId: auth.tenantId, actorUserId: auth.userId, action: "inbox.team.created",
+        entityType: "inbox_team", entityPublicId: saved.publicId, metadata: { name: saved.name, color: saved.color }, ipAddress: request.ip.slice(0, 64) } });
+      return saved;
+    });
+    reply.status(201);
+    return { team: { id: team.publicId, name: team.name, color: team.color, members: [] } };
+  });
+
+  app.patch("/api/team/groups/:teamId", async (request) => {
+    assertSameOrigin(request);
+    const auth = await requireAuth(request);
+    assertCanManageTeam(auth.userRole);
+    const params = groupParamsSchema.safeParse(request.params);
+    const body = groupSchema.safeParse(request.body);
+    if (!params.success || !body.success) throw new AppError(422, "validation_error", "Equipo inválido.");
+    const existing = await prisma.inboxTeam.findFirst({ where: { publicId: params.data.teamId, tenantId: auth.tenantId } });
+    if (!existing) throw new AppError(404, "team_not_found", "Equipo no encontrado.");
+    const team = await prisma.$transaction(async (transaction) => {
+      const saved = await transaction.inboxTeam.update({ where: { id: existing.id }, data: { name: body.data.name, color: body.data.color.toLowerCase() } });
+      await transaction.conversationAssignment.updateMany({ where: { teamId: existing.id, endedAt: null }, data: { teamName: saved.name } });
+      await transaction.auditLog.create({ data: { tenantId: auth.tenantId, actorUserId: auth.userId, action: "inbox.team.updated",
+        entityType: "inbox_team", entityPublicId: saved.publicId, metadata: { from: existing.name, to: saved.name }, ipAddress: request.ip.slice(0, 64) } });
+      return saved;
+    });
+    return { team: { id: team.publicId, name: team.name, color: team.color } };
+  });
+
+  app.put("/api/team/groups/:teamId/members", async (request) => {
+    assertSameOrigin(request);
+    const auth = await requireAuth(request);
+    assertCanManageTeam(auth.userRole);
+    const params = groupParamsSchema.safeParse(request.params);
+    const body = groupMembersSchema.safeParse(request.body);
+    if (!params.success || !body.success) throw new AppError(422, "validation_error", "Equipo o miembros inválidos.");
+    const team = await prisma.inboxTeam.findFirst({ where: { publicId: params.data.teamId, tenantId: auth.tenantId } });
+    if (!team) throw new AppError(404, "team_not_found", "Equipo no encontrado.");
+    const users = await prisma.user.findMany({ where: { tenantId: auth.tenantId, publicId: { in: body.data.userIds }, status: UserStatus.ACTIVE, deletedAt: null } });
+    if (users.length !== new Set(body.data.userIds).size) throw new AppError(422, "invalid_team_members", "Uno o más miembros no están activos en el tenant.");
+    await prisma.$transaction(async (transaction) => {
+      await transaction.inboxTeamMember.deleteMany({ where: { teamId: team.id } });
+      if (users.length) await transaction.inboxTeamMember.createMany({ data: users.map((user) => ({ tenantId: auth.tenantId, teamId: team.id, userId: user.id })) });
+      await transaction.auditLog.create({ data: { tenantId: auth.tenantId, actorUserId: auth.userId, action: "inbox.team.members_changed",
+        entityType: "inbox_team", entityPublicId: team.publicId, metadata: { userIds: body.data.userIds }, ipAddress: request.ip.slice(0, 64) } });
+    });
+    return { members: users.map((user) => ({ id: user.publicId, name: user.name })) };
+  });
+
+  app.delete("/api/team/groups/:teamId", async (request, reply) => {
+    assertSameOrigin(request);
+    const auth = await requireAuth(request);
+    assertCanManageTeam(auth.userRole);
+    const params = groupParamsSchema.safeParse(request.params);
+    if (!params.success) throw new AppError(422, "validation_error", "Equipo inválido.");
+    const team = await prisma.inboxTeam.findFirst({ where: { publicId: params.data.teamId, tenantId: auth.tenantId } });
+    if (!team) throw new AppError(404, "team_not_found", "Equipo no encontrado.");
+    await prisma.$transaction(async (transaction) => {
+      await transaction.conversationAssignment.updateMany({ where: { teamId: team.id, endedAt: null }, data: { endedAt: new Date() } });
+      await transaction.inboxTeam.delete({ where: { id: team.id } });
+      await transaction.auditLog.create({ data: { tenantId: auth.tenantId, actorUserId: auth.userId, action: "inbox.team.deleted",
+        entityType: "inbox_team", entityPublicId: team.publicId, metadata: { name: team.name }, ipAddress: request.ip.slice(0, 64) } });
+    });
+    return reply.status(204).send();
+  });
+
   app.post("/api/team/ownership/transfer", async (request) => {
     assertSameOrigin(request);
     const auth = await requireAuth(request);
@@ -393,7 +506,13 @@ export async function teamRoutes(app: FastifyInstance, options: TeamRoutesOption
       throw new AppError(422, "invalid_new_owner", "Selecciona otro miembro activo del tenant.");
     }
     await prisma.$transaction(async (transaction) => {
-      await transaction.user.update({ where: { id: auth.userId }, data: { role: UserRole.ADMIN } });
+      const ownershipClaim = await transaction.user.updateMany({
+        where: { id: auth.userId, tenantId: auth.tenantId, role: UserRole.OWNER, deletedAt: null },
+        data: { role: UserRole.ADMIN },
+      });
+      if (ownershipClaim.count !== 1) {
+        throw new AppError(409, "ownership_changed", "La propiedad del tenant cambió. Recarga el panel e inténtalo nuevamente.");
+      }
       await transaction.user.update({ where: { id: target.id }, data: { role: UserRole.OWNER } });
       await transaction.auditLog.create({
         data: {

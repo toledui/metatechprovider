@@ -57,6 +57,7 @@ export const env = Object.freeze({
   webhookDeliveryMaxAttempts: integerValue("WEBHOOK_DELIVERY_MAX_ATTEMPTS", 5),
   apiRateLimitPerMinute: integerValue("API_RATE_LIMIT_PER_MINUTE", 60),
   metaMessageTimeoutMs: integerValue("META_MESSAGE_TIMEOUT_MS", 15_000),
+  redisUrl: optionalString("REDIS_URL"),
   credentialsEncryptionKey: optionalString("CREDENTIALS_ENCRYPTION_KEY"),
   metaGraphApiVersion,
   metaGraphApiBaseUrl: stringValue(
