@@ -29,13 +29,15 @@ El comando no reemplaza una clave existente ni imprime su valor. Perder la clave
 Campos disponibles:
 
 - host y puerto;
-- TLS directo (`secure`, normalmente puerto 465);
+- TLS directo (`secure`, obligatorio y normalizado automáticamente en el puerto 465);
 - usuario y contraseña opcionales;
 - nombre y correo remitente;
 - Reply-To opcional;
 - estado habilitado/deshabilitado.
 
-El botón **Enviar correo de prueba** ejecuta primero `transporter.verify()` y después entrega un mensaje real al destinatario indicado. La verificación comprueba DNS, conexión TCP, TLS y autenticación; la aceptación final del remitente solo se conoce al enviar.
+El botón **Enviar correo de prueba** ejecuta primero `transporter.verify()` y después envía un mensaje real al destinatario indicado. La verificación comprueba DNS, conexión TCP, TLS y autenticación. El resultado muestra la respuesta SMTP, destinatarios aceptados o rechazados, modo TLS y Message ID. Una respuesta `250` confirma que el relay puso el mensaje en cola, no que el servidor final lo haya depositado en la bandeja.
+
+El transporte fuerza TLS directo en el puerto 465 y STARTTLS obligatorio en el 587. Cada mensaje usa un envelope sender alineado con `From`, solicita DSN de fallo o demora cuando el relay lo soporta e incorpora un identificador de entrega rastreable. Los resultados y errores SMTP se registran sin incluir credenciales ni el buzón completo del destinatario.
 
 Los correos generados por la app bloquean lectura de archivos y acceso a URLs desde Nodemailer mediante `disableFileAccess` y `disableUrlAccess`.
 

@@ -7,7 +7,7 @@ import { PlatformRole } from "./generated/prisma/enums.js";
 import { prisma } from "./lib/prisma.js";
 import { encryptCredential, hmacSha256, sha256, verifyHmacSha256 } from "./lib/security.js";
 import nodemailer from "nodemailer";
-import { sendUsingTransport, type AppEmail } from "./mail/service.js";
+import { resolveSmtpTransportSecurity, sendUsingTransport, type AppEmail } from "./mail/service.js";
 import { readSetting, writeSetting } from "./settings/service.js";
 import { deliverWebhookLog } from "./webhooks/delivery.js";
 import { downloadMetaMedia } from "./meta/media.js";
@@ -795,10 +795,42 @@ test("genera un correo con transporte de prueba sin entregar mensajes reales", a
   );
 
   assert.ok(result.messageId);
-  const message = JSON.parse(String(result.message)) as { subject?: string; text?: string };
+  const message = JSON.parse(String(result.message)) as {
+    subject?: string;
+    text?: string;
+    messageId?: string;
+    dsn?: { ret?: string; notify?: string[]; orcpt?: string };
+    headers?: Record<string, string>;
+  };
   assert.equal(message.subject, "Prueba SMTP");
   assert.equal(message.text, "Mensaje de prueba");
+  assert.match(message.messageId ?? "", /^<[0-9a-f-]+@thagencia\.test>$/);
+  assert.equal(result.envelope.from, "no-reply@thagencia.test");
+  assert.deepEqual(result.envelope.to, ["recipient@example.test"]);
+  assert.equal(message.dsn?.ret, "HDRS");
+  assert.deepEqual(message.dsn?.notify, ["FAILURE", "DELAY"]);
+  assert.equal(message.dsn?.orcpt, "recipient@example.test");
+  assert.equal(message.headers?.["Auto-Submitted"], "auto-generated");
+  assert.ok(message.headers?.["X-THagencia-Delivery-ID"]);
   transporter.close();
+});
+
+test("normaliza TLS directo para 465 y STARTTLS obligatorio para 587", () => {
+  assert.deepEqual(resolveSmtpTransportSecurity(465, false), {
+    secure: true,
+    requireTLS: false,
+    transport: "implicit-tls",
+  });
+  assert.deepEqual(resolveSmtpTransportSecurity(587, true), {
+    secure: false,
+    requireTLS: true,
+    transport: "starttls",
+  });
+  assert.deepEqual(resolveSmtpTransportSecurity(2525, false), {
+    secure: false,
+    requireTLS: true,
+    transport: "starttls",
+  });
 });
 
 test("contratos seguros de plantillas, multimedia y permisos del inbox", async () => {

@@ -40,6 +40,29 @@ interface SettingsResponse {
   stripe: { available: false; message: string };
 }
 
+interface SmtpTestResponse {
+  status: "queued";
+  messageId: string;
+  response: string;
+  accepted: string[];
+  rejected: string[];
+  transport: "implicit-tls" | "starttls";
+  port: number;
+  warnings: string[];
+}
+
+function smtpFailureNotice(caught: unknown): string {
+  if (!(caught instanceof ApiError)) return "El envío de prueba falló.";
+  const details = caught.details && typeof caught.details === "object"
+    ? caught.details as Record<string, unknown>
+    : undefined;
+  const diagnostic = [details?.code, details?.responseCode, details?.command, details?.response]
+    .filter((value) => typeof value === "string" || typeof value === "number")
+    .map(String)
+    .join(" · ");
+  return diagnostic ? `${caught.message} ${diagnostic}` : caught.message;
+}
+
 export function SettingsPanel() {
   const [settings, setSettings] = useState<SettingsResponse>();
   const [provider, setProvider] = useState<ProviderId>("smtp");
@@ -111,13 +134,18 @@ export function SettingsPanel() {
     setTesting(true);
     setNotice(undefined);
     try {
-      const result = await apiFetch<{ messageId: string }>("/api/admin/settings/smtp/test", {
+      const result = await apiFetch<SmtpTestResponse>("/api/admin/settings/smtp/test", {
         method: "POST",
         body: JSON.stringify({ recipient }),
       });
-      setNotice({ type: "success", text: `Correo aceptado por SMTP. Message ID: ${result.messageId}` });
+      const transport = result.transport === "implicit-tls" ? "TLS directo" : "STARTTLS";
+      const warning = result.warnings.length > 0 ? ` Advertencia: ${result.warnings.join(" ")}` : "";
+      setNotice({
+        type: "success",
+        text: `SMTP puso el mensaje en cola para ${result.accepted.join(", ")} mediante ${transport}:${result.port}. Respuesta: ${result.response || "aceptado"}. Message ID: ${result.messageId}. Esto no confirma la entrega final.${warning}`,
+      });
     } catch (caught) {
-      setNotice({ type: "error", text: caught instanceof ApiError ? caught.message : "El envío de prueba falló." });
+      setNotice({ type: "error", text: smtpFailureNotice(caught) });
     } finally {
       setTesting(false);
     }
@@ -152,7 +180,7 @@ export function SettingsPanel() {
             <div className="form-grid">
               <label className="span-2">Servidor SMTP<input name="host" required defaultValue={settings.smtp?.host ?? ""} placeholder="smtp.ejemplo.com" /></label>
               <label>Puerto<input name="port" type="number" min={1} max={65535} required defaultValue={settings.smtp?.port ?? 587} /></label>
-              <label className="checkbox-field"><input name="secure" type="checkbox" defaultChecked={settings.smtp?.secure ?? false} /><span><strong>TLS directo</strong><small>Normalmente para puerto 465</small></span></label>
+              <label className="checkbox-field"><input name="secure" type="checkbox" defaultChecked={settings.smtp?.secure ?? false} /><span><strong>TLS directo</strong><small>Se activa automáticamente para 465; 587 utiliza STARTTLS</small></span></label>
               <label>Usuario<input name="username" defaultValue={settings.smtp?.username ?? ""} autoComplete="off" /></label>
               <label>Contraseña<input name="password" type="password" placeholder={settings.smtp?.passwordConfigured ? "Guardada · dejar vacío para conservar" : "Contraseña SMTP"} autoComplete="new-password" /></label>
               <label>Nombre del remitente<input name="fromName" required defaultValue={settings.smtp?.fromName ?? "THagencia"} /></label>
@@ -163,7 +191,7 @@ export function SettingsPanel() {
           </form>
 
           <form className="settings-card test-card" onSubmit={testSmtp}>
-            <span className="test-icon">✉</span><h2>Probar envío</h2><p>Primero guarda la configuración. Se validará conexión, TLS, autenticación y entrega al servidor.</p>
+            <span className="test-icon">✉</span><h2>Probar envío</h2><p>Primero guarda la configuración. Se validará conexión, TLS, autenticación y aceptación en la cola SMTP; la entrega final depende del proveedor.</p>
             <label>Destinatario<input name="recipient" type="email" required placeholder="correo@ejemplo.com" /></label>
             <button className="button button-ghost" disabled={testing || !settings.smtp}>{testing ? "Enviando…" : "Enviar correo de prueba"}</button>
           </form>

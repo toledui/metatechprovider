@@ -7,7 +7,7 @@ Internet :443
     |
   Nginx
     |-- /api/* y /health -> Node backend :3001
-    `-- /*               -> Next.js :3000
+    `-- /*               -> Next.js :3010
 
 MySQL escucha solo en localhost o red privada.
 PM2 mantiene frontend, API y worker de webhooks.
@@ -149,10 +149,18 @@ Verificación:
 pm2 status
 curl http://127.0.0.1:3001/health
 curl http://127.0.0.1:3001/ready
-curl -I http://127.0.0.1:3000
+curl -I http://127.0.0.1:3010
 ```
 
 `pm2 status` debe mostrar `thagencia-backend`, `thagencia-frontend` y `thagencia-webhook-worker` en estado `online`.
+
+Para diagnosticar SMTP sin revelar credenciales ni el buzón completo del destinatario:
+
+```bash
+pm2 logs thagencia-backend --lines 200 | grep "\[mail\]"
+```
+
+Una entrada `SMTP queued message` confirma únicamente que el relay aceptó el mensaje. Conserva el `messageId`, la respuesta y el modo TLS para solicitar trazabilidad al proveedor. Los fallos incluyen el código, comando y respuesta SMTP disponibles.
 
 Para ejecutar más de una instancia de `thagencia-backend`, configura `REDIS_URL` con TLS y autenticación cuando el proveedor lo soporte. Sin Redis, mantén una sola instancia porque los eventos SSE solo se comparten dentro del proceso.
 
@@ -198,7 +206,7 @@ server {
     }
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:3010;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -218,7 +226,7 @@ sudo systemctl reload nginx
 
 ## 7. TLS y firewall
 
-Instala Certbot y solicita certificado para el dominio. Abre solamente SSH, HTTP y HTTPS; no expongas 3000, 3001 ni 3306 públicamente.
+Instala Certbot y solicita certificado para el dominio. Abre solamente SSH, HTTP y HTTPS; no expongas 3010, 3001 ni 3306 públicamente.
 
 Comprueba que `APP_ORIGIN` coincida exactamente con el origen público, incluido `https://` y sin slash final. La cookie de sesión usa `Secure` automáticamente cuando `NODE_ENV=production`.
 

@@ -2,7 +2,7 @@
 
 ## Requisito operativo
 
-Antes de permitir registros en producción, configura y valida SMTP desde `Superadmin -> Settings -> SMTP`. El botón de prueba confirma conexión, autenticación y entrega. Si SMTP falla durante un registro, la cuenta queda pendiente y la pantalla permite solicitar otro enlace cuando el servicio vuelva a estar disponible.
+Antes de permitir registros en producción, configura y valida SMTP desde `Superadmin -> Settings -> SMTP`. El botón de prueba confirma conexión, autenticación y aceptación en la cola del relay; la entrega final debe comprobarse en el buzón o con los eventos del proveedor. Si SMTP falla durante un registro, la cuenta queda pendiente y la pantalla permite solicitar otro enlace cuando el servicio vuelva a estar disponible.
 
 `APP_ORIGIN` debe contener el origen público exacto y HTTPS, por ejemplo `https://provider.ejemplo.com`. Las URLs de verificación y recuperación se construyen únicamente con este valor; nunca se confía en el encabezado `Host` de la petición.
 

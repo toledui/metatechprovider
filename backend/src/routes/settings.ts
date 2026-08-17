@@ -4,7 +4,7 @@ import { z } from "zod";
 import { assertSameOrigin, requireSuperAdmin } from "../auth/session.js";
 import { env } from "../config/env.js";
 import { AppError } from "../lib/errors.js";
-import { sendSmtpTest } from "../mail/service.js";
+import { resolveSmtpTransportSecurity, sendSmtpTest } from "../mail/service.js";
 import {
   getMetaSettings,
   getSmtpSettings,
@@ -57,7 +57,7 @@ export async function settingsRoutes(app: FastifyInstance): Promise<void> {
             enabled: smtp.enabled,
             host: smtp.config.host,
             port: smtp.config.port,
-            secure: smtp.config.secure,
+            secure: resolveSmtpTransportSecurity(smtp.config.port, smtp.config.secure).secure,
             username: smtp.config.username,
             passwordConfigured: Boolean(smtp.config.password),
             fromName: smtp.config.fromName,
@@ -96,10 +96,11 @@ export async function settingsRoutes(app: FastifyInstance): Promise<void> {
       throw new AppError(422, "smtp_password_required", "Ingresa la contraseña SMTP.");
     }
 
+    const security = resolveSmtpTransportSecurity(parsed.data.port, parsed.data.secure);
     const config: SmtpSettings = {
       host: parsed.data.host,
       port: parsed.data.port,
-      secure: parsed.data.secure,
+      secure: security.secure,
       username: parsed.data.username,
       password,
       fromName: parsed.data.fromName,
@@ -125,11 +126,7 @@ export async function settingsRoutes(app: FastifyInstance): Promise<void> {
     smtpTestCooldown.set(auth.userId, Date.now());
     const result = await sendSmtpTest(smtp.config, parsed.data.recipient);
 
-    return {
-      success: true,
-      messageId: result.messageId,
-      accepted: Array.isArray(result.accepted) ? result.accepted.map(String) : [],
-    };
+    return { success: true, ...result };
   });
 
   app.put("/api/admin/settings/meta", async (request) => {
